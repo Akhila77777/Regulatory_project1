@@ -1,0 +1,24 @@
+# DermaScan runtime and evaluation dependencies.
+# Versions mirror the SOUP list (SOUP-001) and MUST be confirmed/pinned exactly there before use.
+# SIMULATION / TRAINING EXERCISE - not for clinical use.
+
+# --- SOUP-006 / SOUP-007 / SOUP-008: API service ---
+fastapi==0.111.0
+uvicorn==0.30.0
+pydantic==2.7.0
+
+# --- SOUP-001 / SOUP-002: model ---
+torch==2.3.0
+torchvision==0.18.0
+
+# --- SOUP-003: numerical ---
+numpy==1.26.4
+
+# --- SOUP-004: image I/O ---
+pillow==10.3.0
+
+# --- SOUP-005: metrics / calibration ---
+scikit-learn==1.5.0
+
+# Dev/test (not shipped in runtime image)
+pytest==8.2.0
