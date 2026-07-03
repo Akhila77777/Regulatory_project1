@@ -1,0 +1,43 @@
+Period,Category,KPI,Subgroup,Value,Target,Unit,Direction
+2026-01,Availability,Service availability,All,99.7,99.5,%,higher_better
+2026-01,Availability,Inference volume,All,1240,0,count,higher_better
+2026-01,Performance,Sensitivity (overall),All,0.91,0.90,ratio,higher_better
+2026-01,Performance,Sensitivity by Fitzpatrick,Fitzpatrick I-III,0.92,0.90,ratio,higher_better
+2026-01,Performance,Sensitivity by Fitzpatrick,Fitzpatrick IV-VI,0.84,0.90,ratio,higher_better
+2026-01,Performance,AUROC,All,0.93,0.92,ratio,higher_better
+2026-01,Performance,Performance drift flag,All,0,0,count,lower_better
+2026-01,Quality,Calibration error (ECE),All,0.04,0.05,ratio,lower_better
+2026-01,Quality,OOD rejection rate,All,0.06,0.05,ratio,higher_better
+2026-01,Quality,Input-quality failure rate,All,0.08,0,ratio,lower_better
+2026-01,Quality,Complaint rate,All,0.8,1.0,per1000,lower_better
+2026-01,Quality,Serious incidents,All,0,0,count,lower_better
+2026-01,Quality,Incident reporting timeliness,All,100,100,%,higher_better
+2026-01,Quality,CAPA open / overdue,All,1,0,count,lower_better
+2026-02,Availability,Service availability,All,99.6,99.5,%,higher_better
+2026-02,Availability,Inference volume,All,1310,0,count,higher_better
+2026-02,Performance,Sensitivity (overall),All,0.90,0.90,ratio,higher_better
+2026-02,Performance,Sensitivity by Fitzpatrick,Fitzpatrick I-III,0.91,0.90,ratio,higher_better
+2026-02,Performance,Sensitivity by Fitzpatrick,Fitzpatrick IV-VI,0.82,0.90,ratio,higher_better
+2026-02,Performance,AUROC,All,0.92,0.92,ratio,higher_better
+2026-02,Performance,Performance drift flag,All,0,0,count,lower_better
+2026-02,Quality,Calibration error (ECE),All,0.05,0.05,ratio,lower_better
+2026-02,Quality,OOD rejection rate,All,0.06,0.05,ratio,higher_better
+2026-02,Quality,Input-quality failure rate,All,0.07,0,ratio,lower_better
+2026-02,Quality,Complaint rate,All,0.9,1.0,per1000,lower_better
+2026-02,Quality,Serious incidents,All,0,0,count,lower_better
+2026-02,Quality,Incident reporting timeliness,All,100,100,%,higher_better
+2026-02,Quality,CAPA open / overdue,All,1,0,count,lower_better
+2026-03,Availability,Service availability,All,99.4,99.5,%,higher_better
+2026-03,Availability,Inference volume,All,1402,0,count,higher_better
+2026-03,Performance,Sensitivity (overall),All,0.89,0.90,ratio,higher_better
+2026-03,Performance,Sensitivity by Fitzpatrick,Fitzpatrick I-III,0.90,0.90,ratio,higher_better
+2026-03,Performance,Sensitivity by Fitzpatrick,Fitzpatrick IV-VI,0.80,0.90,ratio,higher_better
+2026-03,Performance,AUROC,All,0.90,0.92,ratio,higher_better
+2026-03,Performance,Performance drift flag,All,1,0,count,lower_better
+2026-03,Quality,Calibration error (ECE),All,0.06,0.05,ratio,lower_better
+2026-03,Quality,OOD rejection rate,All,0.05,0.05,ratio,higher_better
+2026-03,Quality,Input-quality failure rate,All,0.09,0,ratio,lower_better
+2026-03,Quality,Complaint rate,All,1.2,1.0,per1000,lower_better
+2026-03,Quality,Serious incidents,All,0,0,count,lower_better
+2026-03,Quality,Incident reporting timeliness,All,100,100,%,higher_better
+2026-03,Quality,CAPA open / overdue,All,2,0,count,lower_better
