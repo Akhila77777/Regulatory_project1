@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09 - V&V and Traceability</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>09 - Verification, Validation & Traceability</h1>
+  <p>Requirements, tests, and the matrix that ties intended use to evidence.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a class="cur" href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Verification, validation & traceability</h1>
+    <p class="lead">This is where RA meets your engineering background directly: turning intended use and risks into testable requirements, then proving each one. Files: <code>docs/software/srs.md</code>, <code>architecture.md</code>, <code>traceability_matrix.md</code>, <code>verification_validation/</code>.</p>
+
+    <h2>The golden thread</h2>
+    <p>Everything must trace, both ways:</p>
+    <p style="text-align:center"><code>User need / Intended use &rarr; Requirement (REQ) &rarr; Design / Architecture &rarr; Test (TST)</code><br>
+    <code>Risk (RISK) &rarr; Risk control &rarr; Requirement (REQ) &rarr; Verification (TST)</code></p>
+    <p>No requirement without a source; no risk control without a verifying test; no test without a requirement. That is what the <strong>traceability matrix</strong> enforces.</p>
+
+    <h2>Writing a good requirement (SRS)</h2>
+    <div class="box reg">
+      <div class="t">Reg / good practice - requirement quality</div>
+      A requirement must be <strong>unambiguous, testable, atomic, and traceable</strong>. Use "shall". Bad: "the model should be accurate." Good: "<strong>REQ-014:</strong> The system shall achieve sensitivity >= 0.90 (95% CI lower bound >= 0.85) for melanoma on the held-out test set, reported per Fitzpatrick group." Each REQ records: type, text, rationale, source, and linked test.
+    </div>
+
+    <h3>Requirement types to cover</h3>
+    <ul>
+      <li><strong>Functional</strong> - accepts an image, returns a malignancy probability + disclaimer.</li>
+      <li><strong>Performance</strong> - sensitivity/specificity/latency targets.</li>
+      <li><strong>Safety</strong> - rejects out-of-distribution inputs; warns on low confidence (these come from RISK items).</li>
+      <li><strong>Usability</strong> - output is unambiguous, oversight-supporting (IEC 62366-1).</li>
+      <li><strong>Security</strong> - authentication, input validation, logging (links to cybersecurity).</li>
+      <li><strong>Regulatory</strong> - logging per AI Act Art. 12; transparency per Art. 13.</li>
+    </ul>
+
+    <h2>Verification vs validation, applied</h2>
+    <table>
+      <tr><th></th><th>Verification</th><th>Validation</th></tr>
+      <tr><td>Question</td><td>Did we build it to spec?</td><td>Did we build the right thing for the user?</td></tr>
+      <tr><td>Against</td><td>Requirements</td><td>User needs / intended use</td></tr>
+      <tr><td>DermaScan examples</td><td>Unit tests, API contract tests, metric thresholds met on test set, OOD rejection works</td><td>Usability evaluation with clinicians, fit for triage in the intended setting, clinical validation study</td></tr>
+    </table>
+
+    <h2>The traceability matrix (the centrepiece artifact)</h2>
+    <table>
+      <tr><th>REQ</th><th>Source</th><th>Risk link</th><th>Design</th><th>Test</th><th>Result</th></tr>
+      <tr><td>REQ-014 (sensitivity >=0.90)</td><td>Intended use + RISK-007</td><td>RISK-007 (false neg)</td><td>model + threshold</td><td>TST-018</td><td>Pass</td></tr>
+      <tr><td>REQ-021 (reject OOD)</td><td>RISK-007 control</td><td>RISK-007</td><td>OOD detector</td><td>TST-012</td><td>Pass</td></tr>
+      <tr><td>REQ-030 (disclaimer on every response)</td><td>Intended use + AI Act Art.13</td><td>RISK-005 (over-reliance)</td><td>API response schema</td><td>TST-004</td><td>Pass</td></tr>
+    </table>
+
+    <div class="box tip">
+      <div class="t">Tip - this is your interview superpower</div>
+      Your test-engineering background maps 1:1 onto V&V. In interviews, explicitly connect them: <em>"I am comfortable owning the traceability from requirements to tests because that is what I did as a test engineer; the regulatory layer adds the risk and intended-use sources, which I have practised on DermaScan."</em>
+    </div>
+
+    <h2>Special V&V challenges for ML</h2>
+    <ul>
+      <li><strong>Non-determinism</strong> - fix seeds, pin library versions (SOUP), record the exact model artifact hash.</li>
+      <li><strong>Reproducibility</strong> - the test must be re-runnable: dataset version + code version + environment.</li>
+      <li><strong>Metamorphic & robustness testing</strong> - check invariance to small, label-preserving image perturbations (rotation, lighting, compression).</li>
+      <li><strong>Regression on retrain</strong> - a fixed benchmark suite that every new model version must pass before release.</li>
+    </ul>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - "show your test rig"</div>
+      Employers increasingly want to see automated, version-controlled V&V pipelines (CI that runs the metric suite, OOD checks, and subgroup fairness gates on every model change). Building even a small one in DermaScan is a concrete, demonstrable skill.
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>What makes a good requirement?</summary>
+    <p>Unambiguous, testable, atomic, and traceable, written with "shall", with a measurable acceptance criterion, a rationale, a source (intended use, risk control, or regulation), and a linked verification.</p></details>
+    <details class="qa"><summary>What is a traceability matrix and why does it matter?</summary>
+    <p>A table linking user needs/risks to requirements to design to tests, both forward and backward. It proves coverage: every requirement is verified, every risk control is tested, and nothing is orphaned. It is core evidence in a Notified Body audit.</p></details>
+    <details class="qa"><summary>How do you verify and validate an ML model differently from normal software?</summary>
+    <p>You add reproducibility controls (seeds, pinned versions, artifact hashing), evaluate on an independent test set with subgroup and robustness/metamorphic testing, guard against data leakage, and run a regression benchmark suite on every retrain, alongside clinical validation with users for the validation side.</p></details>
+    <details class="qa"><summary>How does a risk control become testable?</summary>
+    <p>The control is written as a requirement (e.g. "shall reject out-of-distribution inputs"), implemented in design, and verified by a specific test, with the chain recorded in the traceability matrix so the control's effectiveness is demonstrably evidenced.</p></details>
+
+    <div class="pager">
+      <a href="step-08-clinical-evaluation.html"><small>Prev</small>&larr; 08 - Clinical Evaluation</a>
+      <a class="nx" href="step-10-pms-eudamed-vigilance.html"><small>Next</small>10 - PMS, EUDAMED, Vigilance &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

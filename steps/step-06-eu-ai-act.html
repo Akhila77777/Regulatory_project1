@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 - EU AI Act for Medical Devices</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>06 - EU AI Act for Medical Devices</h1>
+  <p>The single hottest topic in 2026 MedTech RA. DermaScan is the textbook example.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a class="cur" href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>EU AI Act (Regulation 2024/1689)</h1>
+    <p class="lead">The world's first comprehensive AI law. It uses a risk-pyramid and bolts onto existing product law like MDR. Knowing how it interacts with MDR is the most marketable thing on this whole site. Folder: <code>docs/regulatory/eu_ai_act/</code>.</p>
+
+    <h2>The risk pyramid</h2>
+    <table>
+      <tr><th>Tier</th><th>Treatment</th><th>Example</th></tr>
+      <tr><td><strong>Unacceptable</strong></td><td>Prohibited (Art. 5)</td><td>Social scoring, manipulative AI</td></tr>
+      <tr><td><strong>High-risk</strong></td><td>Strict obligations (Art. 8-15 + Annex IV)</td><td><strong>AI medical devices</strong></td></tr>
+      <tr><td><strong>Limited</strong></td><td>Transparency duties</td><td>Chatbots, deepfakes</td></tr>
+      <tr><td><strong>Minimal</strong></td><td>No obligations</td><td>Spam filters, games</td></tr>
+    </table>
+
+    <div class="box reg">
+      <div class="t">Reg - why DermaScan is high-risk (Art. 6(1))</div>
+      An AI system is high-risk when it is (a) <strong>a safety component of, or itself, a product covered by EU harmonisation law in Annex I</strong> (which includes the MDR), <strong>and</strong> (b) that product must undergo <strong>third-party conformity assessment</strong> under that law. DermaScan is an AI SaMD that is Class IIa under MDR -> needs a Notified Body -> both conditions met -> <strong>high-risk</strong>. (Annex III lists other standalone high-risk uses, but for devices it is the Art. 6(1) route that bites.)
+    </div>
+
+    <h2>The high-risk obligations (Articles 8-15) - learn these by number</h2>
+    <table>
+      <tr><th>Art.</th><th>Obligation</th><th>DermaScan mapping</th></tr>
+      <tr><td><strong>9</strong></td><td>Risk management system (continuous, lifecycle)</td><td>Integrate with the ISO 14971 risk file</td></tr>
+      <tr><td><strong>10</strong></td><td>Data & data governance - relevant, representative, error-free as far as possible; examine for bias</td><td>Dataset card, Fitzpatrick coverage, bias analysis</td></tr>
+      <tr><td><strong>11</strong></td><td>Technical documentation (per Annex IV)</td><td>The AI Act technical file</td></tr>
+      <tr><td><strong>12</strong></td><td>Record-keeping / automatic logging of events</td><td>Inference logs, model version, input metadata</td></tr>
+      <tr><td><strong>13</strong></td><td>Transparency & instructions to the deployer</td><td>IFU: capabilities, limits, accuracy, oversight needs</td></tr>
+      <tr><td><strong>14</strong></td><td>Human oversight - design so a human can understand, override, and not over-rely</td><td>Mandatory clinician review, confidence display, anti-automation-bias design</td></tr>
+      <tr><td><strong>15</strong></td><td>Accuracy, robustness & cybersecurity - declare metrics, be robust to errors/OOD/adversarial inputs</td><td>Report sensitivity/specificity/AUROC + subgroup, OOD handling, security</td></tr>
+    </table>
+
+    <div class="box tip">
+      <div class="t">Tip - the "one file, two laws" message</div>
+      The smart, senior answer to "isn't this double work with MDR?": <em>the AI Act is designed to dovetail with MDR. You produce a single integrated technical file and a single conformity assessment (the Notified Body assesses both), reusing the ISO 14971 risk system for Art. 9, the clinical/performance data for Art. 15, and the QMS for Art. 17.</em> Article 8(2) explicitly allows integration to avoid duplication.
+    </div>
+
+    <h2>Roles: provider vs deployer</h2>
+    <ul>
+      <li><strong>Provider</strong> - develops/places the AI system on the market (the manufacturer). Bears the bulk of obligations. DermaScan's "manufacturer" is the provider.</li>
+      <li><strong>Deployer</strong> - uses it under their authority (the hospital/clinic). Must ensure human oversight, use it per instructions, monitor.</li>
+    </ul>
+    <p>Also know: <strong>QMS (Art. 17)</strong>, <strong>conformity assessment (Art. 43)</strong>, <strong>EU declaration of conformity + CE marking (Art. 47-48)</strong>, <strong>registration (Art. 49)</strong>, <strong>post-market monitoring (Art. 72)</strong>, <strong>serious-incident reporting (Art. 73)</strong>. These mirror MDR almost one-to-one - that mirroring is the point.</p>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - the timeline (know the dates cold)</div>
+      <ul style="margin:.4em 0">
+        <li><strong>2 Feb 2025</strong> - prohibited practices + AI literacy duties already apply.</li>
+        <li><strong>2 Aug 2025</strong> - rules for general-purpose AI (GPAI) and governance apply.</li>
+        <li><strong>2 Aug 2026</strong> - high-risk obligations for <em>standalone</em> Annex III systems apply.</li>
+        <li><strong>2 Aug 2027</strong> - high-risk AI <em>embedded in regulated products requiring third-party assessment</em> (i.e. AI medical devices) must comply - the extended transition that covers DermaScan.</li>
+        <li><strong>Digital Omnibus (proposed, late 2025/2026)</strong> - the Commission has proposed pushing these high-risk dates further (talk of Dec 2027 for standalone and Aug 2028 for embedded), largely because the <strong>harmonized standards are not ready yet</strong>. Treat dates as moving and say so.</li>
+      </ul>
+    </div>
+
+    <div class="box warn">
+      <div class="t">Watch out - missing standards</div>
+      A key reason for the proposed delays is that the <strong>harmonized standards and common specifications</strong> needed to operationalise Art. 9-15 for AI are still under development by CEN-CENELEC. Until they exist there is no clean "presumption of conformity" route for AI - so manufacturers work from drafts, ISO/IEC 42001, and best practice. Knowing this nuance separates you from candidates who only memorised the article numbers.
+    </div>
+
+    <h2>Annex IV - the AI technical documentation</h2>
+    <p>Annex IV is the contents list for the high-risk technical file: general description & intended purpose; detailed system description and development process; the data and data-governance description; the human-oversight measures; the metrics for accuracy, robustness and cybersecurity; the risk-management system; and the post-market monitoring plan. <strong>This is exactly the structure to use in <code>docs/regulatory/eu_ai_act/</code>.</strong></p>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>Why is an AI medical device classed as high-risk under the AI Act?</summary>
+    <p>Under Article 6(1), because it is a safety component of (or is) a product covered by EU harmonisation law (the MDR) and that product requires third-party conformity assessment. An MDR Class IIa+ AI SaMD meets both conditions.</p></details>
+    <details class="qa"><summary>List the core high-risk obligations.</summary>
+    <p>Risk management (Art. 9), data governance (10), technical documentation (11), logging/record-keeping (12), transparency to deployers (13), human oversight (14), and accuracy/robustness/cybersecurity (15), plus a QMS (17), conformity assessment (43), CE marking (48), and post-market monitoring and incident reporting (72-73).</p></details>
+    <details class="qa"><summary>Does the AI Act mean double the work alongside MDR?</summary>
+    <p>No - it is built to integrate. Article 8(2) lets you merge the documentation and assessment so the Notified Body assesses both at once. You reuse the ISO 14971 risk system, clinical/performance evidence, and QMS, adding AI-specific elements (data governance, oversight, robustness, logging).</p></details>
+    <details class="qa"><summary>When does the AI Act apply to AI medical devices?</summary>
+    <p>High-risk obligations for AI embedded in MDR/IVDR devices needing a Notified Body apply from 2 August 2027 (standalone Annex III systems from 2 August 2026). The Digital Omnibus has proposed pushing these later, partly because the harmonized standards are still being developed, so the dates are in flux.</p></details>
+    <details class="qa"><summary>What is the difference between a provider and a deployer?</summary>
+    <p>The provider develops and places the AI system on the market and holds most obligations; the deployer uses it under its authority (e.g. a hospital) and must ensure human oversight, follow the instructions, and monitor performance.</p></details>
+
+    <div class="pager">
+      <a href="step-05-iso13485-qms.html"><small>Prev</small>&larr; 05 - ISO 13485 QMS</a>
+      <a class="nx" href="step-07-data-governance-bias.html"><small>Next</small>07 - Data Governance & Bias &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

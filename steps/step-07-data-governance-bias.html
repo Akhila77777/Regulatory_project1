@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 - Data Governance & Bias</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>07 - Data Governance, Datasets & Bias</h1>
+  <p>AI Act Article 10, the dataset card, and the Fitzpatrick bias problem - the #1 AI dermatology talking point.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a class="cur" href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Data governance & bias</h1>
+    <p class="lead">For an AI device, the data <em>is</em> part of the device. The AI Act dedicates a whole article to it, and bias is the issue most likely to come up in any AI-dermatology interview. Files: <code>docs/data/data_governance.md</code> and <code>docs/data/dataset_card.md</code>.</p>
+
+    <h2>AI Act Article 10 - what is required</h2>
+    <div class="box reg">
+      <div class="t">Reg - Art. 10 data & data governance</div>
+      Training, validation and test datasets must be subject to data-governance practices appropriate to the intended purpose, covering: design choices; data collection and origin; preparation (labelling, cleaning, aggregation); assumptions; assessment of availability/quantity/suitability; <strong>examination for possible biases</strong> that could affect health/safety or cause discrimination; and measures to detect/prevent/mitigate those biases. Datasets must be <strong>relevant, sufficiently representative, and as free of errors and complete as possible</strong> for the intended purpose, taking into account the <strong>geographical, contextual, behavioural or functional setting</strong>.
+    </div>
+
+    <h2>The datasets DermaScan may use</h2>
+    <table>
+      <tr><th>Dataset</th><th>Notes</th></tr>
+      <tr><td><strong>HAM10000</strong></td><td>~10k dermoscopic images, 7 diagnostic categories; widely used benchmark.</td></tr>
+      <tr><td><strong>ISIC Archive</strong></td><td>Large public archive; basis of the ISIC challenges.</td></tr>
+      <tr><td><strong>BCN20000</strong></td><td>~19k images incl. hard-to-diagnose lesions.</td></tr>
+      <tr><td><strong>PH2</strong></td><td>Small, well-annotated dermoscopic set, often for validation.</td></tr>
+    </table>
+    <p>For each, record in the <strong>dataset card</strong>: source, licence, size, class distribution, image modality, acquisition devices, and - critically - <strong>demographic composition</strong> (skin tone, age, sex, geography) and what is missing.</p>
+
+    <div class="box warn">
+      <div class="t">Watch out - the representativeness gap</div>
+      Public dermoscopy datasets are dominated by <strong>light-skinned (Fitzpatrick I-III)</strong>, mostly European/North-American populations. Models trained on them can <strong>under-perform on darker skin (Fitzpatrick IV-VI)</strong>. This is a documented, well-known limitation - if you do not raise it yourself, an interviewer will, and pretending it does not exist is the worst possible answer.
+    </div>
+
+    <h2>The Fitzpatrick scale</h2>
+    <p>The <strong>Fitzpatrick skin phototype scale (I-VI)</strong> classifies skin by its response to UV. It is the standard axis for reporting and stress-testing dermatology-AI fairness. DermaScan should: state its validated Fitzpatrick range in the intended purpose, report <strong>per-Fitzpatrick performance</strong>, and treat under-represented types as a <strong>contraindication / limitation</strong> until validated.</p>
+
+    <h2>Bias: types and mitigations</h2>
+    <table>
+      <tr><th>Bias type</th><th>What it is</th><th>Mitigation</th></tr>
+      <tr><td>Selection / sampling</td><td>Training data not representative of intended population</td><td>Source diverse data; quantify gaps; restrict intended use</td></tr>
+      <tr><td>Label / measurement</td><td>Ground-truth labels noisy or inconsistent</td><td>Histopathology-confirmed labels; inter-rater checks</td></tr>
+      <tr><td>Spurious correlation</td><td>Model learns artefacts (rulers, ink, hair) not pathology</td><td>Augmentation, artefact removal, saliency checks</td></tr>
+      <tr><td>Automation bias</td><td>Users over-trust the output</td><td>Human-oversight design, confidence display, framing</td></tr>
+      <tr><td>Aggregation</td><td>One model fits the majority, fails subgroups</td><td>Subgroup evaluation; subgroup-aware thresholds</td></tr>
+    </table>
+
+    <div class="box tip">
+      <div class="t">Tip - how to talk about bias well</div>
+      Do not just say "I would make the data diverse". Show the loop: <em>measure subgroup performance -> document the gap in the dataset card -> add it as an ISO 14971 risk (RISK-XXX) -> control it (limit intended use, warn, collect more data) -> monitor it in PMS</em>. That closed loop is what separates a data scientist from a regulatory-aware AI engineer.
+    </div>
+
+    <h2>Data protection overlap (GDPR)</h2>
+    <p>Health data is a <strong>special category</strong> under <strong>GDPR Art. 9</strong>. Even with public datasets, document the lawful basis, anonymisation/pseudonymisation, data minimisation, and (for any real deployment) a <strong>Data Protection Impact Assessment (DPIA)</strong>. In Germany, also be aware of the <strong>BDSG</strong> and the new <strong>EU Health Data Space (EHDS)</strong> for secondary use of health data.</p>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - data is a compliance artifact</div>
+      Regulators now treat training data as evidence. Expect to maintain <strong>data lineage</strong> (where each datum came from, how it was transformed), <strong>versioned datasets</strong> tied to model versions, and documented <strong>bias testing</strong>. The European Health Data Space and the AI Act Art. 10 together are pushing "show your data work" from nice-to-have to mandatory.
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>What does AI Act Article 10 require for data?</summary>
+    <p>Documented data-governance over training/validation/test sets: origin, collection, preparation, assumptions, suitability, examination for bias, and mitigation. Data must be relevant, sufficiently representative, and as error-free and complete as possible for the intended purpose and setting.</p></details>
+    <details class="qa"><summary>What is the main bias risk in AI dermatology and how do you handle it?</summary>
+    <p>Under-representation of darker skin tones (Fitzpatrick IV-VI) in public datasets, causing reduced sensitivity for those groups. Handle it by measuring per-Fitzpatrick performance, documenting the gap, restricting the validated intended use, warning in the IFU, logging it as a risk, and addressing it in post-market data collection.</p></details>
+    <details class="qa"><summary>How do you keep data and models traceable?</summary>
+    <p>Version datasets and tie each model version to the exact data and code used to train it, maintain data lineage for transformations, and record splits. This supports reproducibility, change control, and AI Act technical documentation.</p></details>
+    <details class="qa"><summary>How does GDPR interact with an AI medical device?</summary>
+    <p>Health data is special-category data under Article 9, needing a valid condition for processing, minimisation, and usually a DPIA. In Germany the BDSG and the emerging European Health Data Space also apply. Even public datasets need documented lawful basis and anonymisation.</p></details>
+
+    <div class="pager">
+      <a href="step-06-eu-ai-act.html"><small>Prev</small>&larr; 06 - EU AI Act</a>
+      <a class="nx" href="step-08-clinical-evaluation.html"><small>Next</small>08 - Clinical Evaluation &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

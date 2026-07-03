@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DermaScan - Project Study Dossier</title>
+<style>
+:root{--bg:#0f1720;--panel:#16212e;--ink:#e8eef5;--muted:#9fb0c3;--line:#26384a;--brand:#3da9fc;--brand2:#7bdff2;--reg:#f4a259;--warn:#ef6f6c;--tip:#5fd068;--key:#c39bd3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+header.top{background:linear-gradient(120deg,#0c1420,#10202f);border-bottom:1px solid var(--line);padding:26px 0;margin-bottom:26px}
+header.top .wrap{padding-bottom:0}
+h1{font-size:26px;margin:0 0 6px}
+h2{font-size:21px;margin:2em 0 .4em;padding-bottom:6px;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+h3{font-size:17px;margin:1.4em 0 .3em;color:var(--brand2)}
+p,li{color:#d7e1ec}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+code{background:#0b121b;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.9em}
+.lead{font-size:17px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#13202d;color:var(--brand2)}
+tr:nth-child(even) td{background:#131d29}
+.box{border-left:4px solid var(--line);background:var(--panel);border-radius:0 10px 10px 0;padding:11px 15px;margin:14px 0}
+.box .t{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.reg{border-color:var(--reg)}.reg .t{color:var(--reg)}
+.warn{border-color:var(--warn)}.warn .t{color:var(--warn)}
+.tip{border-color:var(--tip)}.tip .t{color:var(--tip)}
+.key{border-color:var(--key)}.key .t{color:var(--key)}
+.hot{border-color:var(--brand)}.hot .t{color:var(--brand)}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 20px;margin:10px 0 26px;columns:2;column-gap:30px}
+.toc a{display:block;padding:3px 0;font-size:14px}
+.toc .h{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.07em;margin:8px 0 3px;break-after:avoid}
+.pill{display:inline-block;background:#13314a;color:var(--brand2);border:1px solid #1d4664;border-radius:6px;padding:1px 7px;font-size:11px;margin:2px 3px 0 0}
+.docid{font-family:ui-monospace,Consolas,monospace;color:var(--brand2);font-weight:600}
+.small{font-size:13px;color:var(--muted)}
+hr{border:0;border-top:1px solid var(--line);margin:2.4em 0}
+@media print{body{background:#fff;color:#000}.box{border:1px solid #ccc}th,td{border-color:#999}.toc{columns:2}a{color:#000}h2{border-color:#ccc}}
+@media(max-width:700px){.toc{columns:1}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>DermaScan - Project Study Dossier</h1>
+  <p class="lead">Everything built in this project, with the core concepts and regulations behind each artifact. A single-file study and interview companion.</p>
+</div></header>
+
+<div class="wrap">
+
+<div class="box warn"><div class="t">Honesty banner</div>
+DermaScan is a personal portfolio / training simulation. It is <strong>not</strong> a certified medical device, is <strong>not</strong> CE marked, has <strong>no</strong> Notified Body certificate or Declaration of Conformity, uses only public licensed datasets, and its code is currently scaffolding. Everything below is written in submission style for learning.
+</div>
+
+<nav class="toc">
+  <div class="h">Foundations</div>
+  <a href="#tldr">1. What DermaScan is (TL;DR)</a>
+  <a href="#stack">2. The regulatory stack</a>
+  <a href="#register">3. Document register (what was built)</a>
+  <a href="#thread">4. The golden thread</a>
+  <div class="h">Phase by phase</div>
+  <a href="#p1">5.1 Intended purpose & SaMD</a>
+  <a href="#p2">5.2 Classification & GSPR</a>
+  <a href="#p3">5.3 Risk management (ISO 14971)</a>
+  <a href="#p4">5.4 IEC 62304 software</a>
+  <a href="#p5">5.5 QMS (ISO 13485)</a>
+  <a href="#p6">5.6 EU AI Act</a>
+  <a href="#p7">5.7 Data governance & bias</a>
+  <a href="#p8">5.8 Clinical evaluation</a>
+  <a href="#p9">5.9 SRS, architecture, traceability</a>
+  <a href="#p10">5.10 Deployment & MLOps (GCP)</a>
+  <a href="#p11">5.11 Cybersecurity</a>
+  <a href="#p12">5.12 Post-market & KPI board</a>
+  <a href="#p13">5.13 Technical file & CE route</a>
+  <a href="#p14">5.14 Code & infra scaffolding</a>
+  <div class="h">Wrap-up</div>
+  <a href="#decisions">6. Key decisions</a>
+  <a href="#hot">7. 2026 hot topics</a>
+  <a href="#glossary">8. Glossary</a>
+  <a href="#checklist">9. Interview checklist</a>
+</nav>
+
+<h2 id="tldr">1. What DermaScan is (TL;DR)</h2>
+<p>DermaScan is an AI image classifier that screens dermoscopic/clinical skin-lesion images for malignancy (melanoma vs. benign), documented <em>as if</em> it were going through EU conformity assessment as a <strong>Software as a Medical Device (SaMD)</strong>. It is intended as <strong>decision-support</strong> that assists a qualified clinician in triaging pigmented lesions, never an autonomous diagnosis.</p>
+<p>Three regimes stack on it, and the project's whole value is showing they fit together:</p>
+<ul>
+<li><strong>The device</strong> is regulated by the <strong>EU MDR</strong> (Class IIa software).</li>
+<li><strong>The AI</strong> is regulated by the <strong>EU AI Act</strong> (high-risk AI system).</li>
+<li>Both are operationalized by <strong>harmonized standards</strong> (ISO 14971 risk, IEC 62304 lifecycle, ISO 13485 QMS, IEC 81001-5-1 security, ISO/IEC 42001 AI management).</li>
+</ul>
+
+<h2 id="stack">2. The regulatory stack</h2>
+<table>
+<tr><th>Layer</th><th>Instrument</th><th>Role in DermaScan</th></tr>
+<tr><td>Device law</td><td>EU MDR 2017/745</td><td>Software giving info for diagnosis, Rule 11, Class IIa, Notified Body needed</td></tr>
+<tr><td>AI law</td><td>EU AI Act 2024/1689</td><td>Safety component of a device under 3rd-party assessment, high-risk (Art. 6(1))</td></tr>
+<tr><td>Risk</td><td>ISO 14971:2019</td><td>Hazard analysis, controls, residual & benefit-risk</td></tr>
+<tr><td>Software lifecycle</td><td>IEC 62304</td><td>Lifecycle, safety class (decided: Class C), SOUP</td></tr>
+<tr><td>Quality system</td><td>ISO 13485:2016</td><td>Document control, CAPA, design controls</td></tr>
+<tr><td>AI management</td><td>ISO/IEC 42001:2023</td><td>The "QMS for AI" (interim, standards still emerging)</td></tr>
+<tr><td>Security</td><td>IEC 81001-5-1 / MDCG 2019-16</td><td>Secure health-software lifecycle</td></tr>
+<tr><td>Usability</td><td>IEC 62366-1</td><td>Use-error / human factors</td></tr>
+<tr><td>Data protection</td><td>GDPR</td><td>Special-category health data, security of processing</td></tr>
+</table>
+
+<h2 id="register">3. Document register (what was built)</h2>
+<p class="small">Every artifact produced, its ID, and the core idea it carries. All are Draft-status simulations.</p>
+<table>
+<tr><th>Doc ID</th><th>Artifact</th><th>Core concept / regulation</th></tr>
+<tr><td class="docid">IU-001</td><td>Intended use</td><td>Intended purpose anchors everything (MDR Annex I / Art. 2)</td></tr>
+<tr><td class="docid">CLS-001</td><td>Classification rationale</td><td>Rule 11, Class IIa; AI Act Art. 6(1) high-risk</td></tr>
+<tr><td class="docid">RMF-PLAN-001</td><td>Risk management plan</td><td>Severity/probability scales, acceptability matrix (ISO 14971)</td></tr>
+<tr><td class="docid">RMF-RA-001</td><td>Risk analysis + 10-item register</td><td>Hazard/situation/harm; AI-specific hazards</td></tr>
+<tr><td class="docid">RMF-RPT-001</td><td>Risk management report</td><td>Overall residual risk, benefit-risk determination</td></tr>
+<tr><td class="docid">SDP-001</td><td>Software development plan</td><td>IEC 62304 lifecycle, config management</td></tr>
+<tr><td class="docid">SSC-001</td><td>Software safety classification</td><td>Class C decision (severity-driven)</td></tr>
+<tr><td class="docid">SOUP-001</td><td>SOUP list</td><td>Third-party components, known-anomaly control, SBOM</td></tr>
+<tr><td class="docid">SOP-DC-001</td><td>Document control SOP</td><td>ISO 13485 4.2.4, doc IDs, versioning</td></tr>
+<tr><td class="docid">SOP-CAPA-001</td><td>CAPA SOP</td><td>ISO 13485 8.5, root cause, effectiveness check</td></tr>
+<tr><td class="docid">SOP-DESIGN-001</td><td>Design control SOP</td><td>ISO 13485 7.3, inputs/outputs/V&V</td></tr>
+<tr><td class="docid">AIA-001</td><td>AI Act technical documentation</td><td>Annex IV; Articles 9-15, 72</td></tr>
+<tr><td class="docid">DG-001</td><td>Data governance</td><td>AI Act Art. 10; bias examination; GDPR</td></tr>
+<tr><td class="docid">DSC-001</td><td>Dataset card</td><td>Datasets, licences, demographics, Fitzpatrick gap</td></tr>
+<tr><td class="docid">CLIN-001</td><td>Clinical evaluation</td><td>MDCG 2020-1; three pillars; benefit-risk</td></tr>
+<tr><td class="docid">SRS-001</td><td>Software requirements spec</td><td>~27 testable REQs, sources and tests</td></tr>
+<tr><td class="docid">ARC-001</td><td>Software architecture</td><td>10 components, gate-before-model flow</td></tr>
+<tr><td class="docid">TRC-001</td><td>Traceability matrix</td><td>REQ &harr; RISK &harr; TST spine, no orphans</td></tr>
+<tr><td class="docid">DEP-001</td><td>Deployment / MLOps (GCP)</td><td>Cloud Run, Vertex AI, drift monitoring</td></tr>
+<tr><td class="docid">PMS-001</td><td>Post-market surveillance plan</td><td>PMS/PMCF/vigilance; AI Act Art. 72/73</td></tr>
+<tr><td class="docid">KPI-001</td><td>KPI dashboard (+ CSV)</td><td>Post-market monitoring in Excel data model</td></tr>
+<tr><td class="docid">CYB-001</td><td>Cybersecurity</td><td>MDCG 2019-16, IEC 81001-5-1, STRIDE, AI threats</td></tr>
+<tr><td class="docid">VV-001 / VV-TS-001</td><td>V&V plan + 18 test specs</td><td>Verification vs validation; ML test rules</td></tr>
+<tr><td class="docid">TF-001</td><td>Technical file index + CE route</td><td>Annex II/III map; conformity assessment</td></tr>
+<tr><td class="docid">src/ + infra/</td><td>Code & IaC scaffolding</td><td>FastAPI + PyTorch stubs; Terraform stubs</td></tr>
+</table>
+
+<h2 id="thread">4. The golden thread</h2>
+<p>The single most important idea: everything traces, both ways.</p>
+<p style="text-align:center"><code>Intended use &rarr; Risk &rarr; Requirement (REQ) &rarr; Design &rarr; Verification (TST) &rarr; Post-market</code></p>
+<div class="box key"><div class="t">Why it matters</div>No requirement without a source; no risk control without a verifying test; no test without a requirement. <span class="docid">TRC-001</span> is the auditable proof of this, and a Notified Body audit lives on it.</div>
+
+<hr>
+
+<h2 id="p1">5.1 Intended purpose &amp; SaMD</h2>
+<p><span class="pill">IU-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Qualification:</strong> software is a medical device if it acts on data beyond storage/retrieval for a medical purpose for an individual patient (MDCG 2019-11). DermaScan qualifies, so it is <strong>SaMD</strong> (vs SiMD, software embedded in hardware).</li>
+<li><strong>Intended purpose is the anchor:</strong> it fixes classification, applicable GSPRs, risk scope, clinical evidence, and post-market plans. Change it and everything downstream must be revisited.</li>
+<li><strong>Conservative claim:</strong> "assists a qualified clinician in triaging pigmented lesions", never "detects skin cancer". Overclaiming raises the class and the liability.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>MDR Art. 2 (definitions), Annex I (intended purpose in the IFU); MDCG 2019-11 (software qualification).</div>
+
+<h2 id="p2">5.2 Classification &amp; GSPR</h2>
+<p><span class="pill">CLS-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Rule 11:</strong> software providing information for diagnostic/therapeutic decisions is <strong>Class IIa</strong>; IIb if a wrong decision could cause serious deterioration or surgery; III if death/irreversible harm.</li>
+<li><strong>Decision:</strong> Class IIa, argued (not asserted) on the decision-support + mandatory-clinician-review framing. Conditional: autonomous use would push it higher.</li>
+<li><strong>GSPR:</strong> MDR Annex I essential requirements, shown via a checklist mapping each to evidence; a <strong>harmonized standard</strong> grants a presumption of conformity.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>MDR Annex VIII Rule 11; Art. 51 (classes); Annex I (GSPR). AI Act Art. 6(1) makes it high-risk.</div>
+
+<h2 id="p3">5.3 Risk management (ISO 14971)</h2>
+<p><span class="pill">RMF-PLAN-001</span> <span class="pill">RMF-RA-001</span> <span class="pill">RMF-RPT-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>The five terms:</strong> hazard (source of harm) &rarr; sequence of events &rarr; hazardous situation (exposure) &rarr; harm; risk = severity x probability.</li>
+<li><strong>Control priority order:</strong> (1) inherently safe design, (2) protective measures, (3) information for safety. The IFU is the weakest, used last.</li>
+<li><strong>AI-specific hazards</strong> in the 10-item register: false negative, false positive, out-of-distribution input, Fitzpatrick/algorithmic bias, automation bias, dataset shift, miscalibration, adversarial input, use-error, data leak.</li>
+<li><strong>Residual & benefit-risk:</strong> the missed-melanoma risks stay "Undesirable &rarr; Tolerable-AFAP" because severity (S4) is intrinsic; acceptance leans on mandatory clinician review + demonstrated benefit.</li>
+<li><strong>One integrated file</strong> satisfies ISO 14971, MDR, and AI Act Art. 9 together.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>ISO 14971:2019 (+ ISO/TR 24971); MDR Annex I ch. I; EU AI Act Art. 9.</div>
+
+<h2 id="p4">5.4 IEC 62304 software lifecycle</h2>
+<p><span class="pill">SDP-001</span> <span class="pill">SSC-001</span> <span class="pill">SOUP-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Safety class A/B/C</strong> is derived from the hazard analysis, not assumed. <strong>Decision: Class C</strong> - worst credible harm is a missed melanoma (serious/fatal), and mandatory clinician review reduces probability but cannot be relied on to prevent it (automation bias; procedural, unverifiable), and 62304 classifies on severity.</li>
+<li><strong>The two class decisions differ on purpose:</strong> MDR class IIa leans <em>on</em> clinician review; IEC 62304 conservatively does <em>not</em> lean on it, giving Class C.</li>
+<li><strong>SOUP</strong> = third-party/OSS components: identify, pin versions, assess known anomalies/CVEs. The SOUP list doubles as the SBOM.</li>
+<li><strong>ML additions:</strong> model + datasets are versioned config items; retraining is a change under a predetermined change control plan (PCCP).</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>IEC 62304:2006+A1:2015 clauses 4.3 (classification), 5-9 (lifecycle & support processes).</div>
+
+<h2 id="p5">5.5 Quality management system (ISO 13485)</h2>
+<p><span class="pill">SOP-DC-001</span> <span class="pill">SOP-CAPA-001</span> <span class="pill">SOP-DESIGN-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Document control:</strong> IDs, versioning, review/approval, change control, records.</li>
+<li><strong>CAPA:</strong> correction (symptom) vs corrective action (root cause) vs preventive action (potential cause); investigate, act, verify effectiveness. Triggered by complaints, audits, and KPI/PMS breaches.</li>
+<li><strong>Design controls:</strong> inputs &rarr; outputs &rarr; review &rarr; verification &rarr; validation &rarr; transfer &rarr; change, all in a design file. <strong>Verification</strong> = built it right; <strong>Validation</strong> = built the right thing.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>ISO 13485:2016 clauses 4.2 (documents), 7.3 (design), 8.5 (CAPA); MDR Art. 10 (QMS). Currency: ISO/IEC 42001 for AI; FDA QMSR aligns with 13485 in 2026.</div>
+
+<h2 id="p6">5.6 EU AI Act</h2>
+<p><span class="pill">AIA-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>High-risk basis:</strong> Art. 6(1) - a safety component of an MDR product needing third-party assessment.</li>
+<li><strong>Obligations by number:</strong> 9 risk mgmt, 10 data governance, 11 technical doc (Annex IV), 12 logging, 13 transparency, 14 human oversight, 15 accuracy/robustness/security.</li>
+<li><strong>Integration:</strong> Art. 8(2) allows one technical file and one conformity assessment shared with MDR - no duplication.</li>
+<li><strong>Provider vs deployer;</strong> provider (manufacturer) holds most duties.</li>
+</ul>
+<div class="box hot"><div class="t">Timeline (know it)</div>High-risk standalone obligations from 2 Aug 2026; AI embedded in MDR/IVDR devices from ~2 Aug 2027; the Digital Omnibus proposes further slippage because harmonized AI standards are not ready.</div>
+<div class="box reg"><div class="t">Regulation</div>Regulation (EU) 2024/1689, Art. 6, 8-15, 43, 47-49, 72-73, Annex IV.</div>
+
+<h2 id="p7">5.7 Data governance &amp; bias</h2>
+<p><span class="pill">DG-001</span> <span class="pill">DSC-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Art. 10:</strong> data must be relevant, representative, and as error-free/complete as possible, examined for bias, for the intended purpose and setting.</li>
+<li><strong>Datasets:</strong> HAM10000, ISIC, BCN20000, PH2 - public, licensed; documented in the dataset card with demographics.</li>
+<li><strong>The #1 talking point:</strong> public dermoscopy data skews light-skinned (Fitzpatrick I-III); models under-perform on IV-VI. Handle by measuring per-subgroup performance, documenting the gap, restricting the validated range, and monitoring post-market (this is RISK-004).</li>
+<li><strong>Data lineage & versioning</strong> tie each model to its exact data; GDPR Art. 9/32 + DPIA overlay.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>EU AI Act Art. 10; GDPR Art. 9 (special category), Art. 32 (security); EHDS (context).</div>
+
+<h2 id="p8">5.8 Clinical evaluation</h2>
+<p><span class="pill">CLIN-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Three pillars (IMDRF / MDCG 2020-1):</strong> valid clinical association, technical/analytical validation, clinical validation.</li>
+<li><strong>Metrics:</strong> sensitivity (priority - a missed melanoma is worst), specificity, AUROC, calibration, and per-subgroup, always with confidence intervals. Never a single accuracy figure.</li>
+<li><strong>Independent / external validation</strong> and leakage prevention; the benefit-risk conclusion feeds the risk report.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>MDR Art. 61 & Annex XIV Part A; MDCG 2020-1 (software clinical evaluation).</div>
+
+<h2 id="p9">5.9 SRS, architecture &amp; traceability</h2>
+<p><span class="pill">SRS-001</span> <span class="pill">ARC-001</span> <span class="pill">TRC-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Good requirement:</strong> unambiguous, testable, atomic, traceable, "shall", with a measurable acceptance criterion and a source (intended use / risk control / AI Act article).</li>
+<li><strong>Architecture:</strong> 10 components with a <strong>gate-before-model</strong> data flow (validate &rarr; quality gate &rarr; OOD &rarr; model), so an invalid input can never be returned as a confident low-risk score.</li>
+<li><strong>Traceability matrix</strong> proves coverage: every REQ, RISK, and TST is linked; no orphans; AI Act articles mapped.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>IEC 62304 5.2/5.3; ISO 13485 7.3.6/7.3.7 (V&V); MDR GSPR 17.</div>
+
+<h2 id="p10">5.10 Deployment &amp; MLOps (GCP)</h2>
+<p><span class="pill">DEP-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Runtime:</strong> Cloud Run (API), Artifact Registry, Cloud Storage (model/data), IAM + Secret Manager, Cloud Armor (rate limiting/WAF), Cloud Logging/Audit Logs.</li>
+<li><strong>MLOps pipeline (Vertex AI):</strong> data validation &rarr; train &rarr; <strong>evaluation gate</strong> (fails the build on subgroup/fairness breach) &rarr; model registry &rarr; human approval (PCCP) &rarr; deploy &rarr; monitor.</li>
+<li><strong>Monitoring:</strong> Vertex AI Model Monitoring for drift/skew (RISK-006, RISK-004) feeds the KPI board and PMS.</li>
+<li><strong>Governance ties:</strong> EU region (GDPR residency), cloud provider as a supplier (ISO 13485 7.4 + DPA), logs satisfy AI Act Art. 12.</li>
+</ul>
+<div class="box tip"><div class="t">Why it is strong</div>The pipeline's evaluation gate = automated V&V; the approval step = design review / PCCP; the monitoring = post-market surveillance. The MLOps loop and the regulatory lifecycle are the same loop.</div>
+
+<h2 id="p11">5.11 Cybersecurity</h2>
+<p><span class="pill">CYB-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Security is safety:</strong> a vulnerability that can cause harm is a safety risk and lives in the ISO 14971 file (RISK-008, RISK-010).</li>
+<li><strong>STRIDE threat model</strong> over the architecture; secure-by-design (auth, encryption, input validation, least privilege, tamper-evident logs).</li>
+<li><strong>AI-specific threats:</strong> adversarial examples, data/model poisoning, model inversion/extraction, evasion (AI Act Art. 15).</li>
+<li><strong>SBOM = SOUP list;</strong> CVE monitoring &rarr; CVSS triage &rarr; patch under change control &rarr; CAPA.</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>MDR GSPR 17.2/17.4; MDCG 2019-16; IEC 81001-5-1; AI Act Art. 15; GDPR Art. 32; CRA/NIS2 (context).</div>
+
+<h2 id="p12">5.12 Post-market surveillance &amp; KPI board</h2>
+<p><span class="pill">PMS-001</span> <span class="pill">KPI-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>PMS</strong> is proactive and continuous; a Class IIa device produces a <strong>PSUR</strong> (not a plain PMS report). <strong>PMCF</strong> is the clinical sub-part.</li>
+<li><strong>Vigilance:</strong> serious incident = led/could lead to death or serious deterioration; reporting 15 / 10 / 2 days; FSCA/FSN; trend reporting.</li>
+<li><strong>EUDAMED</strong> mandatory use phasing in ~28 May 2026; UDI for traceability.</li>
+<li><strong>AI drift is the safety mechanism:</strong> the KPI board (Excel data model) tracks performance, <strong>subgroup fairness drift</strong>, and vigilance/CAPA against thresholds; a breach triggers CAPA or controlled retraining under the PCCP. (Not OEE - a software-service analog: availability / performance / quality.)</li>
+</ul>
+<div class="box reg"><div class="t">Regulation</div>MDR Art. 83-88, Annex III; AI Act Art. 72 (monitoring), 73 (incidents).</div>
+
+<h2 id="p13">5.13 Technical file &amp; CE route</h2>
+<p><span class="pill">TF-001</span></p>
+<h3>Core concepts</h3>
+<ul>
+<li><strong>Technical documentation</strong> = MDR Annex II (device, IFU, design, GSPR, risk, V&V, clinical) + Annex III (post-market). TF-001 indexes every document to its Annex section.</li>
+<li><strong>Conformity route:</strong> Class IIa &rarr; Notified Body via Annex IX, integrated with the AI Act (one assessment).</li>
+<li><strong>Market-access chain:</strong> classify &rarr; QMS + tech file &rarr; GSPR conformity &rarr; NB assessment &rarr; CE certificate &rarr; <strong>Declaration of Conformity</strong> (manufacturer's) &rarr; CE mark + NB number &rarr; EUDAMED/UDI &rarr; PMS. <strong>PRRC</strong> (Art. 15) is the responsible person.</li>
+</ul>
+<div class="box warn"><div class="t">Simulation</div>No NB engaged, no certificate, no DoC, no CE mark, no EUDAMED registration. TF-001 marks each step "not performed".</div>
+
+<h2 id="p14">5.14 Code &amp; infrastructure scaffolding</h2>
+<p><span class="pill">src/</span> <span class="pill">infra/</span> <span class="pill">requirements.txt</span></p>
+<h3>What exists</h3>
+<ul>
+<li><strong>src/</strong> package (common, api, data, models, evaluation) - stubs with signatures and docstrings citing the ARC-001 component and REQ/RISK IDs; logic raises <code>NotImplementedError</code>.</li>
+<li><strong>FastAPI</strong> service and <strong>Pydantic</strong> response schema that enforces the mandatory disclaimer field at the schema level (REQ-030).</li>
+<li><strong>tests/</strong> stubs mapped to the TST IDs (skipped until implemented).</li>
+<li><strong>infra/</strong> Terraform stubs for the GCP setup (EU region); <strong>requirements.txt</strong> pinned to mirror the SOUP list.</li>
+</ul>
+
+<hr>
+
+<h2 id="decisions">6. Key decisions (be ready to defend these)</h2>
+<table>
+<tr><th>Decision</th><th>Rationale</th></tr>
+<tr><td>MDR <strong>Class IIa</strong> (Rule 11)</td><td>Decision-support with mandatory clinician review; not autonomous.</td></tr>
+<tr><td>AI Act <strong>high-risk</strong></td><td>Art. 6(1): safety component of an MDR device needing a Notified Body.</td></tr>
+<tr><td>IEC 62304 <strong>Class C</strong></td><td>Worst harm is serious/fatal; clinician review cannot be relied on to prevent it. Deliberately not gamed down to B.</td></tr>
+<tr><td><strong>One integrated risk file</strong></td><td>Satisfies ISO 14971 + MDR + AI Act Art. 9 without divergence.</td></tr>
+<tr><td><strong>Gate-before-model</strong> architecture</td><td>Invalid/OOD input can never be returned as a confident low-risk score.</td></tr>
+<tr><td>Report <strong>per-subgroup</strong> metrics</td><td>Fitzpatrick bias is the key AI-dermatology risk; aggregate numbers hide it.</td></tr>
+<tr><td><strong>Not OEE</strong>, a PMS KPI board</td><td>SaMD has no production equipment; monitor model performance/drift/vigilance instead.</td></tr>
+</table>
+
+<h2 id="hot">7. 2026 hot topics</h2>
+<ul>
+<li><strong>EU AI Act x MDR</strong> integration - one file, one assessment.</li>
+<li><strong>AI Act timeline + Digital Omnibus</strong> - dates moving; harmonized standards still emerging.</li>
+<li><strong>EUDAMED</strong> mandatory ~28 May 2026.</li>
+<li><strong>MDR/IVDR "2.0" revision</strong> - easing Rule 11 and Notified-Body capacity.</li>
+<li><strong>ISO/IEC 42001</strong> - AI management system.</li>
+<li><strong>Bias / Fitzpatrick fairness</strong>; <strong>PCCP</strong> for model change control; <strong>cybersecurity convergence</strong> (MDR + AI Act + CRA + NIS2 + GDPR).</li>
+<li><strong>Germany:</strong> BfArM, DiGA fast-track, TUV/DEKRA Notified Bodies. The prized profile is <strong>Regulatory Affairs + AI dual-fluency</strong> - exactly this project.</li>
+</ul>
+
+<h2 id="glossary">8. Glossary</h2>
+<p class="small"><strong>SaMD</strong> software as a medical device | <strong>MDR/IVDR</strong> device/IVD regulations | <strong>GSPR</strong> general safety & performance requirements (Annex I) | <strong>IFU</strong> instructions for use | <strong>QMS</strong> quality management system | <strong>SOUP</strong> software of unknown provenance | <strong>SBOM</strong> software bill of materials | <strong>CAPA</strong> corrective & preventive action | <strong>V&V</strong> verification & validation | <strong>CER</strong> clinical evaluation report | <strong>PMS/PMCF/PSUR</strong> post-market surveillance / clinical follow-up / periodic safety update report | <strong>EUDAMED</strong> EU device database | <strong>UDI</strong> unique device identification | <strong>NB</strong> notified body | <strong>DoC</strong> declaration of conformity | <strong>PRRC</strong> person responsible for regulatory compliance | <strong>MDCG</strong> medical device coordination group | <strong>PCCP</strong> predetermined change control plan | <strong>OOD</strong> out-of-distribution | <strong>AUROC</strong> area under ROC curve | <strong>ECE</strong> expected calibration error | <strong>Fitzpatrick</strong> skin-phototype scale I-VI | <strong>BfArM</strong> German competent authority | <strong>DiGA</strong> German digital health app fast-track.</p>
+
+<h2 id="checklist">9. Interview checklist</h2>
+<ul>
+<li>Can I define hazard vs hazardous situation vs harm, with a DermaScan example?</li>
+<li>Can I justify Rule 11 / Class IIa AND IEC 62304 Class C, and explain why they point differently?</li>
+<li>Can I list AI Act Art. 9-15 and how they reuse the MDR file?</li>
+<li>Can I explain verification vs validation in one line each?</li>
+<li>Can I tell the Fitzpatrick bias story end-to-end (measure &rarr; document &rarr; restrict &rarr; monitor)?</li>
+<li>Can I trace one requirement from intended use through risk to a test?</li>
+<li>Can I name the post-market outputs (PSUR) and vigilance timelines, and the EUDAMED 2026 date?</li>
+<li>Can I give the 90-second honest pitch: an end-to-end Class IIa AI SaMD file, built as a simulation, showing MDR + AI Act fit together?</li>
+</ul>
+
+<p class="small" style="margin-top:40px">Companion material: the sectioned study site in <code>steps/index.html</code> (step-00 to step-13) has deeper concept pages and Q&amp;A. This dossier is the project-specific summary tying those concepts to the actual artifacts built.</p>
+
+</div>
+</body>
+</html>

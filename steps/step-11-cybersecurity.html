@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11 - Cybersecurity for Medical Devices</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>11 - Cybersecurity for Medical Devices</h1>
+  <p>A fast-rising compliance area, sharply scrutinised by German regulators.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a class="cur" href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Cybersecurity</h1>
+    <p class="lead">Security is now an explicit safety requirement: an insecure device is an unsafe device. German regulators are increasingly scrutinising this for connected and AI products. File: a cybersecurity section in the technical documentation.</p>
+
+    <h2>The legal hooks</h2>
+    <table>
+      <tr><th>Instrument</th><th>Cybersecurity requirement</th></tr>
+      <tr><td><strong>MDR Annex I, GSPR 17.2 & 17.4</strong></td><td>Software developed per state of the art including <strong>information security</strong>; IT security measures incl. protection against unauthorised access.</td></tr>
+      <tr><td><strong>MDCG 2019-16</strong></td><td>The key guidance on medical device cybersecurity (secure design, risk, IFU security info, post-market).</td></tr>
+      <tr><td><strong>IEC 81001-5-1</strong></td><td>Harmonized standard for the secure development lifecycle of health software (the "security IEC 62304").</td></tr>
+      <tr><td><strong>EU AI Act Art. 15</strong></td><td>High-risk AI must be resilient to errors and to attempts to alter use/performance via exploitation (incl. <strong>data poisoning, model poisoning, adversarial examples, model evasion</strong>).</td></tr>
+      <tr><td><strong>GDPR</strong></td><td>Art. 32 security of processing; breach notification.</td></tr>
+      <tr><td><strong>Cyber Resilience Act (CRA)</strong></td><td>Horizontal EU law on security of products with digital elements; interplay with MDR is being clarified.</td></tr>
+      <tr><td><strong>NIS2 (DE: implementation)</strong></td><td>Security duties for essential/important entities incl. healthcare operators.</td></tr>
+    </table>
+
+    <h2>Core concepts to know</h2>
+    <ul>
+      <li><strong>Security risk management</strong> - run a security risk assessment alongside ISO 14971 (threat modelling, e.g. STRIDE); security risks that can cause patient harm feed the safety risk file.</li>
+      <li><strong>Secure-by-design & defence in depth</strong> - authentication, authorisation, encryption in transit/at rest, input validation, least privilege.</li>
+      <li><strong>SBOM (Software Bill of Materials)</strong> - inventory of all components (your SOUP list doubles as this) to track vulnerabilities/CVEs.</li>
+      <li><strong>Vulnerability management</strong> - monitor, triage (CVSS), patch; coordinated disclosure.</li>
+      <li><strong>Logging & audit</strong> - tamper-evident logs (also satisfies AI Act Art. 12).</li>
+    </ul>
+
+    <div class="box reg">
+      <div class="t">Reg - security IS safety</div>
+      Under MDR, a cybersecurity vulnerability that can lead to patient harm is a safety risk and must be in the ISO 14971 risk file with controls and post-market monitoring. Security is not a separate silo; it is part of the benefit-risk story.
+    </div>
+
+    <h2>AI-specific security threats</h2>
+    <table>
+      <tr><th>Threat</th><th>What it is</th><th>DermaScan control</th></tr>
+      <tr><td>Adversarial examples</td><td>Crafted input perturbations flip the output</td><td>Robustness testing; input sanity/quality checks</td></tr>
+      <tr><td>Data poisoning</td><td>Corrupting training data to bias the model</td><td>Trusted, version-controlled datasets; provenance checks</td></tr>
+      <tr><td>Model theft / inversion</td><td>Extracting the model or training data via the API</td><td>Rate limiting, access control, output minimisation</td></tr>
+      <tr><td>Prompt/input injection (for any LLM features)</td><td>Malicious input hijacks behaviour</td><td>Input validation, sandboxing</td></tr>
+    </table>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - the convergence headache</div>
+      Manufacturers must now reconcile MDR + AI Act Art. 15 + the Cyber Resilience Act + NIS2 + GDPR for one connected device. German authorities and the BSI are scrutinising this closely. Being able to say "I understand IEC 81001-5-1 as the implementation standard and MDCG 2019-16 as the guidance, and how AI Act Art. 15 adds adversarial robustness" is a strong, current differentiator.
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>How does cybersecurity fit into MDR?</summary>
+    <p>Through GSPR 17 in Annex I: software must be developed to the state of the art including information security, with IT-security measures against unauthorised access. Cybersecurity risks that can cause harm go into the ISO 14971 risk file, guided by MDCG 2019-16 and implemented per IEC 81001-5-1.</p></details>
+    <details class="qa"><summary>What is an SBOM and why does it matter?</summary>
+    <p>A Software Bill of Materials: a complete inventory of components and dependencies. It lets you track which products are affected when a new vulnerability (CVE) is disclosed and is increasingly required by regulators. For DermaScan the SOUP list is the SBOM.</p></details>
+    <details class="qa"><summary>What cybersecurity threats are specific to AI?</summary>
+    <p>Adversarial examples, data poisoning, model poisoning, model inversion/theft, and evasion attacks. AI Act Article 15 explicitly requires resilience against these for high-risk systems, in addition to conventional security.</p></details>
+    <details class="qa"><summary>How do safety and security risk management relate?</summary>
+    <p>They run in parallel and intersect: a security threat that can result in patient harm is also a safety risk, so it is captured in the ISO 14971 file with controls and monitored post-market. Security is part of the overall benefit-risk determination.</p></details>
+
+    <div class="pager">
+      <a href="step-10-pms-eudamed-vigilance.html"><small>Prev</small>&larr; 10 - PMS, EUDAMED, Vigilance</a>
+      <a class="nx" href="step-12-technical-doc-ce-marking.html"><small>Next</small>12 - Tech File & CE Marking &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

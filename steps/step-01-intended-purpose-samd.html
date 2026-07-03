@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 - Intended Purpose & SaMD</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>01 - Intended Purpose & Software as a Medical Device</h1>
+  <p>The document everything else hangs from. Get this wrong and the whole file is wrong.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a class="cur" href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Intended purpose & SaMD</h1>
+    <p class="lead">The <strong>intended purpose</strong> (also "intended use") is the anchor of the entire regulatory file. Classification, risk, requirements, clinical evidence, and post-market plans are all derived from it. Project file: <code>docs/regulatory/intended_use.md</code>.</p>
+
+    <h2>Is it even a medical device? (qualification)</h2>
+    <p>Under <strong>MDR Article 2(1)</strong>, a device is an instrument, software, etc. intended by the manufacturer to be used for a <em>medical purpose</em> such as <strong>diagnosis, prevention, monitoring, prediction, prognosis, treatment, or alleviation</strong> of disease. Note: it is the <em>manufacturer's stated intent</em> that decides qualification, not the technology.</p>
+
+    <div class="box reg">
+      <div class="t">Reg - what makes software a medical device (SaMD)</div>
+      <strong>MDCG 2019-11</strong> gives the qualification logic. Software is a medical device when it performs an action on data <em>beyond storage, archival, communication, or simple search</em> and does so for a medical purpose for the benefit of an individual patient. DermaScan analyses an image to flag malignancy risk for a specific patient -> it qualifies. The international term is <strong>SaMD</strong> (Software as a Medical Device), defined by <strong>IMDRF</strong> as software intended for a medical purpose that performs that purpose <em>without being part of a hardware medical device</em>.
+    </div>
+
+    <h2>SaMD vs SiMD</h2>
+    <ul>
+      <li><strong>SaMD</strong> - standalone software that is itself the device (DermaScan, a diagnosis-support app).</li>
+      <li><strong>SiMD</strong> - Software <em>in</em> a Medical Device, i.e. embedded firmware driving hardware (e.g. control software in an infusion pump).</li>
+    </ul>
+
+    <h2>What an intended-purpose statement must contain</h2>
+    <table>
+      <tr><th>Element</th><th>For DermaScan (example, conservative)</th></tr>
+      <tr><td>Medical purpose</td><td>Decision support for triage of pigmented skin lesions</td></tr>
+      <tr><td>Indication</td><td>Adult patients with a pigmented skin lesion of concern</td></tr>
+      <tr><td>Intended user</td><td>Qualified clinician (dermatologist / GP), not the patient</td></tr>
+      <tr><td>Use environment</td><td>Clinical setting, dermoscopic or standardised clinical imaging</td></tr>
+      <tr><td>Input</td><td>A single dermoscopic/clinical image meeting stated quality criteria</td></tr>
+      <tr><td>Output</td><td>A malignancy-risk probability with calibrated confidence + mandatory disclaimer</td></tr>
+      <tr><td>What it is NOT</td><td>Not a diagnosis; does not replace histopathology or clinical judgement</td></tr>
+      <tr><td>Contraindications / limits</td><td>Non-pigmented lesions, poor-quality images, image types/skin tones outside the validated range</td></tr>
+      <tr><td>Patient population & demographics</td><td>State the validated Fitzpatrick range; flag any under-represented groups</td></tr>
+    </table>
+
+    <div class="box warn">
+      <div class="t">Watch out - scope creep</div>
+      The most common (and most penalised) mistake is overclaiming. "Detects skin cancer" implies a diagnostic device making a definitive call. "Assists a qualified clinician in triaging pigmented lesions" is a decision-support tool with human oversight. The wording you choose directly changes your <em>classification</em>, your <em>risk profile</em>, and your <em>liability</em>. Always write the narrowest honest claim.
+    </div>
+
+    <div class="box tip">
+      <div class="t">Tip - intended purpose drives everything</div>
+      In an interview, if asked "where do you start with a new product?", the right answer is always: <em>"With the intended purpose, because it determines qualification, classification, the applicable GSPRs, the risk analysis scope, and the clinical evidence I need."</em>
+    </div>
+
+    <h2>Intended purpose vs the EU AI Act</h2>
+    <p>The AI Act also leans on intended purpose: a system's "intended purpose" (Art. 3) plus its status as a safety component of a regulated device determines whether it is <strong>high-risk</strong>. Keep the MDR intended purpose and the AI Act intended purpose <em>identical and consistent</em> - inconsistency between the two is an easy audit finding.</p>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>How do you decide whether a piece of software is a medical device?</summary>
+    <p>Look at the manufacturer's intended purpose against MDR Article 2 and apply the MDCG 2019-11 logic: does it do more than store/transmit/search, and does it act on data for a medical purpose benefiting an individual patient? If yes, it qualifies. The technology is irrelevant; the claimed intended use is decisive.</p></details>
+    <details class="qa"><summary>What is the difference between SaMD and SiMD?</summary>
+    <p>SaMD is standalone software that is itself the medical device and achieves its purpose without being part of hardware. SiMD is software embedded in and controlling a hardware device. DermaScan is SaMD.</p></details>
+    <details class="qa"><summary>Why is the intended-purpose statement so important?</summary>
+    <p>It is the single source of truth: it determines qualification, classification (and therefore the conformity route), which GSPRs apply, the scope of the risk file, the clinical evidence needed, the IFU content, and the post-market plan. Change the intended purpose and you must revisit all of those.</p></details>
+    <details class="qa"><summary>How would you phrase DermaScan's intended purpose defensively?</summary>
+    <p>As a decision-support tool intended to assist qualified clinicians in triaging pigmented skin lesions by providing a malignancy-risk estimate, with mandatory human review, explicitly not a diagnosis and not a replacement for histopathology, validated for a stated population and image type.</p></details>
+
+    <div class="pager">
+      <a href="step-00-ra-landscape-germany.html"><small>Prev</small>&larr; 00 - RA Landscape</a>
+      <a class="nx" href="step-02-mdr-classification-gspr.html"><small>Next</small>02 - MDR Classification & GSPR &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

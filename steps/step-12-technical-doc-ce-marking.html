@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 - Technical File & CE Marking</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>12 - Technical Documentation, Conformity Assessment & CE Marking</h1>
+  <p>How all the pieces assemble into a market-access decision.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a class="cur" href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Technical documentation, conformity assessment & CE marking</h1>
+    <p class="lead">This is the assembly point: the technical file is the evidence, conformity assessment is the check, CE marking is the result. Folder: <code>docs/regulatory/technical_documentation/</code>.</p>
+
+    <h2>The technical documentation (MDR Annex II & III)</h2>
+    <div class="box reg">
+      <div class="t">Reg - what the technical file contains</div>
+      <strong>Annex II (technical documentation):</strong> device description and specification; intended purpose; information for labelling/IFU; design and manufacturing information; the GSPR checklist; benefit-risk analysis and risk management; product verification and validation (incl. clinical evaluation, software V&V). <strong>Annex III:</strong> the post-market surveillance documentation (PMS plan, PSUR/PMS report, PMCF). Together they are "the technical file".
+    </div>
+    <p>Everything you built in sections 01-11 slots into this structure - the technical file is essentially an index over all of it.</p>
+
+    <h2>Conformity assessment routes</h2>
+    <p>For Class IIa (DermaScan's assumption), the manufacturer needs a <strong>Notified Body</strong>. The common MDR route:</p>
+    <ul>
+      <li><strong>Annex IX</strong> - QMS audit + assessment of technical documentation (on a sampling basis for IIa). This is the typical route.</li>
+      <li><strong>Annex XI</strong> - product conformity verification (alternative).</li>
+    </ul>
+    <p>For an AI device, the same Notified Body assessment can, under the AI Act's integration provisions, also cover the high-risk AI requirements - <strong>one assessment, both regimes</strong> (see section 06).</p>
+
+    <h2>The market-access chain (memorise the sequence)</h2>
+    <ol>
+      <li>Define intended purpose -> classify (Rule 11).</li>
+      <li>Build the QMS (ISO 13485) and technical documentation (Annex II/III).</li>
+      <li>Demonstrate GSPR conformity via harmonized standards + risk + clinical evaluation + V&V.</li>
+      <li>Engage a <strong>Notified Body</strong> for conformity assessment (Class IIa+).</li>
+      <li>NB issues the <strong>CE certificate</strong>.</li>
+      <li>Manufacturer draws up the <strong>EU Declaration of Conformity (DoC)</strong>.</li>
+      <li>Affix the <strong>CE mark</strong> (with the NB's 4-digit number for IIa+).</li>
+      <li>Register the device and actors in <strong>EUDAMED</strong>; assign <strong>UDI</strong>.</li>
+      <li>Place on market -> run <strong>PMS / vigilance</strong> for the lifetime.</li>
+    </ol>
+
+    <div class="box tip">
+      <div class="t">Tip - CE mark vs Declaration of Conformity</div>
+      The <strong>Declaration of Conformity</strong> is the manufacturer's legal statement that the device meets all applicable requirements; the <strong>CE mark</strong> is the visible symbol of that. The manufacturer (not the Notified Body) always owns the DoC. For self-certified Class I there is no NB number next to the CE mark; for IIa+ there is.</div>
+
+    <h2>Key roles in the supply chain (MDR economic operators)</h2>
+    <table>
+      <tr><th>Role</th><th>Responsibility</th></tr>
+      <tr><td>Manufacturer</td><td>Owns conformity, technical file, DoC, PMS</td></tr>
+      <tr><td>Authorised Representative (EC REP)</td><td>EU-based legal contact for a non-EU manufacturer</td></tr>
+      <tr><td>Importer</td><td>Verifies conformity before placing on EU market</td></tr>
+      <tr><td>Distributor</td><td>Verifies CE/labelling/UDI; storage conditions</td></tr>
+      <tr><td><strong>PRRC (Art. 15)</strong></td><td>Person Responsible for Regulatory Compliance - a required qualified role inside the manufacturer/AR. A common RA career target.</td></tr>
+    </table>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - capacity & simplification</div>
+      Two live themes: <strong>Notified Body capacity</strong> (a bottleneck under MDR, driving long queues and transition-deadline extensions), and the <strong>Digital Omnibus / MDR revision</strong> aiming to cut duplicate documentation across MDR, IVDR and the AI Act and to ease the burden on SMEs. Mentioning the NB-capacity crunch shows real market awareness.
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>What is in the MDR technical documentation?</summary>
+    <p>Per Annex II: device description and intended purpose, labelling/IFU, design and manufacturing info, the GSPR checklist, benefit-risk and risk management, and verification/validation including clinical evaluation and software V&V; per Annex III, the post-market surveillance documentation. It is the complete evidence of conformity.</p></details>
+    <details class="qa"><summary>Walk me through getting a Class IIa device to market.</summary>
+    <p>Define intended purpose and classify, build the QMS and technical file, show GSPR conformity through standards, risk, clinical evaluation and V&V, undergo Notified Body conformity assessment (typically Annex IX), obtain the CE certificate, issue the Declaration of Conformity, affix the CE mark with the NB number, register in EUDAMED with a UDI, and run PMS/vigilance afterwards.</p></details>
+    <details class="qa"><summary>Difference between the CE mark and the Declaration of Conformity?</summary>
+    <p>The Declaration of Conformity is the manufacturer's signed legal statement of compliance; the CE mark is the visible symbol that such a declaration exists. The manufacturer owns the DoC; for Class IIa+ the CE mark carries the Notified Body's number.</p></details>
+    <details class="qa"><summary>What is a PRRC?</summary>
+    <p>The Person Responsible for Regulatory Compliance (MDR Art. 15): a designated, suitably qualified person who ensures conformity, technical documentation, PMS and reporting obligations are met. It is a defined RA role and a realistic career goal.</p></details>
+    <details class="qa"><summary>Why are Notified Bodies a bottleneck right now?</summary>
+    <p>MDR vastly increased the assessment workload and the number of devices needing NB involvement, while the number of designated NBs and their capacity grew more slowly, causing backlogs and prompting transition-deadline extensions and simplification proposals.</p></details>
+
+    <div class="pager">
+      <a href="step-11-cybersecurity.html"><small>Prev</small>&larr; 11 - Cybersecurity</a>
+      <a class="nx" href="step-13-interview-prep-2026.html"><small>Next</small>13 - Interview Prep 2026 &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

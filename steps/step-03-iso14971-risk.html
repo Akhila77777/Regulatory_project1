@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 - ISO 14971 Risk Management</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>03 - ISO 14971 Risk Management</h1>
+  <p>The spine of the whole file: hazard -> hazardous situation -> harm, controls, residual risk.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a class="cur" href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>ISO 14971 risk management</h1>
+    <p class="lead">ISO 14971:2019 is the process for managing risk across the whole device lifecycle. It is the most-tested standard in RA interviews because every other activity links back to it. Project folder: <code>docs/regulatory/risk_management_file/</code>.</p>
+
+    <h2>The five core terms (memorise exactly)</h2>
+    <table>
+      <tr><th>Term</th><th>Definition</th><th>DermaScan example</th></tr>
+      <tr><td><strong>Hazard</strong></td><td>Potential source of harm</td><td>Incorrect model output</td></tr>
+      <tr><td><strong>Hazardous situation</strong></td><td>Circumstance where people are exposed to the hazard</td><td>Clinician sees a "low risk" score for an actual melanoma</td></tr>
+      <tr><td><strong>Sequence of events</strong></td><td>The chain leading from hazard to exposure</td><td>OOD image -> model overconfident -> low score shown -> clinician reassured</td></tr>
+      <tr><td><strong>Harm</strong></td><td>Injury or damage to health</td><td>Delayed diagnosis -> disease progression</td></tr>
+      <tr><td><strong>Risk</strong></td><td>Combination of probability of harm and its severity</td><td>P(occurrence) x severity rating</td></tr>
+    </table>
+
+    <div class="box warn">
+      <div class="t">Watch out - the classic confusion</div>
+      A <em>hazard</em> is not a <em>harm</em>. "Wrong output" is the hazard; "delayed diagnosis" is the harm; the "clinician acting on the wrong output" is the hazardous situation. Interviewers deliberately probe whether you can keep these straight.
+    </div>
+
+    <h2>The risk management process</h2>
+    <ol>
+      <li><strong>Risk management plan</strong> - scope, responsibilities, the risk acceptability criteria, the methods.</li>
+      <li><strong>Risk analysis</strong> - identify intended use & reasonably foreseeable misuse; identify hazards; estimate risk (severity x probability).</li>
+      <li><strong>Risk evaluation</strong> - compare each risk against the acceptability criteria.</li>
+      <li><strong>Risk control</strong> - reduce risk using the priority order below; verify each control's effectiveness; check for new risks introduced.</li>
+      <li><strong>Residual risk evaluation</strong> - individual and <strong>overall</strong> residual risk; overall benefit-risk determination.</li>
+      <li><strong>Risk management report</strong> - conclusion that residual risk is acceptable.</li>
+      <li><strong>Production & post-production</strong> - feed real-world data back in (links to PMS).</li>
+    </ol>
+
+    <div class="box reg">
+      <div class="t">Reg - risk control priority (ISO 14971 risk control order)</div>
+      Controls must be applied in this order, not by convenience:
+      <ol style="margin:.4em 0">
+        <li><strong>Inherently safe design</strong> (e.g. calibrated confidence, reject out-of-distribution inputs);</li>
+        <li><strong>Protective measures</strong> in the device or manufacturing (e.g. mandatory clinician confirmation, low-confidence warnings);</li>
+        <li><strong>Information for safety</strong> (IFU, labelling, the disclaimer) - the <em>weakest</em>, used last.</li>
+      </ol>
+      You cannot rely on "we put it in the manual" as a primary control.
+    </div>
+
+    <h2>A worked DermaScan risk row</h2>
+    <table>
+      <tr><th>Field</th><th>Value</th></tr>
+      <tr><td>RISK-007</td><td>False negative on a malignant lesion</td></tr>
+      <tr><td>Hazard</td><td>Erroneous low-malignancy output</td></tr>
+      <tr><td>Sequence</td><td>Out-of-distribution image (rare lesion / under-represented skin tone) -> overconfident low score</td></tr>
+      <tr><td>Hazardous situation</td><td>Clinician under-triages, defers biopsy</td></tr>
+      <tr><td>Harm / severity</td><td>Delayed melanoma treatment / Critical</td></tr>
+      <tr><td>Pre-control risk</td><td>Severity Critical x Probability Occasional = Unacceptable</td></tr>
+      <tr><td>Risk controls</td><td>(1) OOD detector rejects unsupported inputs; (2) calibrated confidence + low-confidence warning; (3) mandatory clinician review framing; (4) IFU states validated population/limits</td></tr>
+      <tr><td>Verification</td><td>TST-012 (OOD rejection), TST-018 (subgroup sensitivity), usability test of warning</td></tr>
+      <tr><td>Residual risk</td><td>Reduced to acceptable given benefit and oversight</td></tr>
+    </table>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - AI-specific hazards</div>
+      For AI/ML devices, examiners expect risk items that classical software does not have: <strong>dataset shift</strong> (real-world data drifts from training data), <strong>automation bias / over-reliance</strong>, <strong>out-of-distribution inputs</strong>, <strong>demographic/Fitzpatrick bias</strong>, <strong>silent performance degradation</strong>, and <strong>adversarial / corrupted inputs</strong>. The EU AI Act Art. 9 risk-management duties map directly onto ISO 14971 - keep one integrated risk file, do not run two.
+    </div>
+
+    <h2>ISO 14971 vs the AI Act Art. 9</h2>
+    <p>Both require a continuous, lifecycle risk-management system with identification, estimation, control, and residual-risk evaluation. Best practice (and the easy interview point): run a <strong>single integrated risk process</strong> that satisfies ISO 14971, MDR, and AI Act Art. 9 together, rather than maintaining parallel files. The accompanying guidance <strong>ISO/TR 24971</strong> gives the how-to for 14971.</p>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>Define hazard, hazardous situation, and harm with an example.</summary>
+    <p>Hazard = a potential source of harm (a wrong AI output). Hazardous situation = exposure to that hazard (a clinician relying on the wrong output). Harm = the actual injury (delayed treatment and disease progression). Risk = probability of that harm times its severity.</p></details>
+    <details class="qa"><summary>In what order must risk controls be applied?</summary>
+    <p>Inherently safe design first; then protective measures in the device or process; then information for safety (labelling/IFU) last. You cannot use the manual as the primary control for a serious risk.</p></details>
+    <details class="qa"><summary>What is residual risk and overall residual risk?</summary>
+    <p>Residual risk is the risk remaining after controls. Overall residual risk is the combined risk of the whole device, which must be judged acceptable against the device's clinical benefit (benefit-risk determination) and documented in the risk management report.</p></details>
+    <details class="qa"><summary>What new risks does AI introduce that traditional software risk analysis misses?</summary>
+    <p>Dataset shift, out-of-distribution inputs, demographic bias, automation bias/over-reliance, lack of explainability, silent degradation over time, and adversarial inputs. These must appear as explicit risk items with controls and post-market monitoring.</p></details>
+    <details class="qa"><summary>How do ISO 14971 and EU AI Act Article 9 relate?</summary>
+    <p>Both mandate a continuous, lifecycle risk-management system. The practical approach is one integrated risk file that demonstrably meets ISO 14971, MDR, and AI Act Art. 9, avoiding duplicate and potentially contradictory records.</p></details>
+
+    <div class="pager">
+      <a href="step-02-mdr-classification-gspr.html"><small>Prev</small>&larr; 02 - Classification & GSPR</a>
+      <a class="nx" href="step-04-iec62304-software.html"><small>Next</small>04 - IEC 62304 Software &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

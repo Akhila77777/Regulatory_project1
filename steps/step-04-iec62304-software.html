@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 - IEC 62304 Software Lifecycle</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>04 - IEC 62304 Software Lifecycle</h1>
+  <p>Safety classes A/B/C, the lifecycle processes, and SOUP.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a class="cur" href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>IEC 62304 software lifecycle</h1>
+    <p class="lead">IEC 62304 defines the lifecycle processes for medical device software. The amount of process rigour scales with the software <strong>safety class</strong>. Project folder: <code>docs/regulatory/iec62304/</code>.</p>
+
+    <h2>Software safety classification (A / B / C)</h2>
+    <p>The class depends on the <strong>severity of harm</strong> that the software could contribute to <em>after</em> considering risk controls outside the software:</p>
+    <table>
+      <tr><th>Class</th><th>Possible harm from a software failure</th><th>Rigour</th></tr>
+      <tr><td><strong>A</strong></td><td>No injury or damage to health is possible</td><td>Lightest</td></tr>
+      <tr><td><strong>B</strong></td><td>Non-serious injury is possible</td><td>Medium</td></tr>
+      <tr><td><strong>C</strong></td><td>Death or serious injury is possible</td><td>Heaviest</td></tr>
+    </table>
+
+    <div class="box reg">
+      <div class="t">Reg - the class is set by risk, not assumed</div>
+      You assign the class from the <strong>hazard analysis</strong> (ISO 14971). Crucially, you may assign a <em>lower</em> class if an external risk control (a hardware safeguard, or a procedural one like mandatory clinician confirmation) reduces the possible harm. The decision and its justification must be documented.
+    </div>
+
+    <div class="box tip">
+      <div class="t">Tip - DermaScan's class is a judgement call (talk about it)</div>
+      A missed melanoma is a serious harm, which argues for <strong>Class C</strong>. But if you credibly position DermaScan as decision-support with <em>mandatory</em> clinician review, you can argue the software alone cannot cause serious harm, supporting <strong>Class B</strong>. The "right" interview answer is: <em>I would derive it from the risk analysis and document the rationale; I would not default to B just to reduce work.</em> Do not state a class in the project without the written argument.
+    </div>
+
+    <h2>The lifecycle processes</h2>
+    <ol>
+      <li><strong>Software development planning</strong> (5.1) - the SDP: lifecycle model, activities, deliverables, tooling.</li>
+      <li><strong>Requirements analysis</strong> (5.2) - software requirements (functional, performance, safety, interfaces).</li>
+      <li><strong>Architectural design</strong> (5.3) - decompose into items; identify SOUP.</li>
+      <li><strong>Detailed design</strong> (5.4) - for Class C.</li>
+      <li><strong>Implementation & unit verification</strong> (5.5).</li>
+      <li><strong>Integration & integration testing</strong> (5.6).</li>
+      <li><strong>System testing</strong> (5.7).</li>
+      <li><strong>Release</strong> (5.8) - known anomalies documented and assessed.</li>
+    </ol>
+    <p>Plus the continuous "supporting" processes: <strong>risk management</strong> (clause 7, ties to ISO 14971), <strong>configuration management</strong> (clause 8), <strong>problem resolution</strong> (clause 9), and <strong>maintenance</strong> (clause 6).</p>
+
+    <h2>SOUP - Software of Unknown Provenance</h2>
+    <p><strong>SOUP</strong> is any software item not developed under IEC 62304 for this device - i.e. third-party and open-source libraries. For DermaScan that is PyTorch/TensorFlow, FastAPI, NumPy, Pillow, etc.</p>
+    <div class="box reg">
+      <div class="t">Reg - SOUP requirements</div>
+      For each SOUP item you must: identify it (name + version), state its functional/performance requirements and the hardware/software it needs, and evaluate its <strong>known anomalies</strong> (e.g. published bug lists / CVEs) for relevance to safety. Maintain a <strong>SOUP list</strong>. In this project use IDs <code>SOUP-XXX</code> and pin versions in <code>requirements.txt</code>.
+    </div>
+
+    <h2>Where ML breaks the classic model</h2>
+    <p>IEC 62304 predates modern ML and does not directly address training data, model versioning, or non-determinism. Bridge it with:</p>
+    <ul>
+      <li><strong>AAMI CR34971 / BS/AAMI 34971</strong> - guidance on applying ISO 14971 to AI/ML.</li>
+      <li><strong>ISO/IEC 42001</strong> - AI management system (the "QMS for AI").</li>
+      <li>Treat the <strong>trained model + its training/validation datasets</strong> as configuration items under version control; document data and model lineage.</li>
+    </ul>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - lifecycle for continuously-learning AI</div>
+      Regulators are focused on <strong>change management for AI</strong>: what happens when you retrain? The expectation is a <strong>predetermined change control plan</strong> (the EU is converging with the FDA concept of a "Predetermined Change Control Plan / PCCP") so that defined model updates do not each require a new conformity assessment. Mention this; it is current and senior-sounding.
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>How is IEC 62304 software safety class determined?</summary>
+    <p>From the hazard analysis: Class A if no injury is possible, B if non-serious injury is possible, C if death or serious injury is possible. You may justify a lower class when an external risk control (hardware or procedural) limits the harm the software alone can cause. The decision must be documented.</p></details>
+    <details class="qa"><summary>What would you classify DermaScan as, B or C?</summary>
+    <p>It depends on the risk analysis. A missed melanoma is serious harm, pointing to C; but if mandatory independent clinician review is a credible external control, the software alone may not cause serious harm, supporting B. I would document the rationale rather than assume a class to save effort.</p></details>
+    <details class="qa"><summary>What is SOUP and how do you handle it?</summary>
+    <p>Software of Unknown Provenance - third-party/open-source components not developed to IEC 62304. You identify each (name + version), specify its requirements, and assess its known anomalies/CVEs for safety relevance, keeping a maintained SOUP list and pinned versions.</p></details>
+    <details class="qa"><summary>How do you manage software changes after release?</summary>
+    <p>Through the maintenance, configuration management, and problem-resolution processes: assess each change for impact on safety and risk, re-verify affected items, and update documentation and the risk file. For AI, a predetermined change control plan can pre-authorise defined retraining within limits.</p></details>
+
+    <div class="pager">
+      <a href="step-03-iso14971-risk.html"><small>Prev</small>&larr; 03 - ISO 14971 Risk</a>
+      <a class="nx" href="step-05-iso13485-qms.html"><small>Next</small>05 - ISO 13485 QMS &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

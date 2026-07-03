@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 - ISO 13485 QMS</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>05 - ISO 13485 Quality Management System</h1>
+  <p>Document control, design controls, CAPA - the discipline that holds the whole file together.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a class="cur" href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>ISO 13485 quality management system</h1>
+    <p class="lead">ISO 13485:2016 is the QMS standard for medical devices. MDR effectively requires a QMS (Art. 10), and ISO 13485 is the harmonized way to have one. In DermaScan we borrow its <strong>discipline</strong> (document control, design controls, CAPA) without claiming a certified QMS. Folder: <code>docs/regulatory/qms/</code>.</p>
+
+    <h2>What a QMS is for</h2>
+    <p>A QMS is the documented system of processes that ensures the organisation consistently produces safe, effective, compliant devices - and can prove it. It is <strong>process-based and risk-based</strong>, and it is what a Notified Body audits.</p>
+
+    <h2>Key elements you must know</h2>
+    <table>
+      <tr><th>Element</th><th>What it means</th><th>In DermaScan</th></tr>
+      <tr><td><strong>Document & record control</strong> (4.2)</td><td>Every controlled doc has an ID, version, author, reviewer, approver, status; changes are tracked; records are retained</td><td>The header block on every regulatory doc; doc IDs like RMF-PLAN-001</td></tr>
+      <tr><td><strong>Design & development controls</strong> (7.3)</td><td>Design planning -> inputs -> outputs -> review -> verification -> validation -> transfer -> change control; a <strong>design history file</strong></td><td>The SRS, architecture, V&V, traceability matrix collectively form the design file</td></tr>
+      <tr><td><strong>CAPA</strong> (8.5)</td><td>Corrective action (fix the cause of an existing problem) and preventive action (stop a potential one); investigate root cause, act, verify effectiveness</td><td>A CAPA log SOP; link to problem resolution and PMS findings</td></tr>
+      <tr><td><strong>Management responsibility</strong> (5)</td><td>Top management sets quality policy/objectives, reviews the QMS</td><td>N/A for a solo project, but know it exists</td></tr>
+      <tr><td><strong>Purchasing / suppliers</strong> (7.4)</td><td>Control of suppliers and outsourced processes</td><td>Maps to SOUP / dependency control</td></tr>
+      <tr><td><strong>Internal audit</strong> (8.2.4)</td><td>Periodic checks the QMS is followed and effective</td><td>Self-review checklist</td></tr>
+    </table>
+
+    <div class="box reg">
+      <div class="t">Reg - design controls (the part RA cares about most)</div>
+      <strong>Design inputs</strong> (requirements derived from intended use + risk) must be traceable to <strong>design outputs</strong> (the actual specs/code). <strong>Verification</strong> answers "did we build the device right?" (outputs meet inputs). <strong>Validation</strong> answers "did we build the right device?" (it meets user needs and intended use in the real setting). The <strong>traceability matrix</strong> is the evidence that nothing is orphaned.
+    </div>
+
+    <div class="box tip">
+      <div class="t">Tip - verification vs validation (a guaranteed question)</div>
+      Verification = meeting the specification (against requirements). Validation = meeting the user's actual need (against intended use). Memorise: "Verification = building it right; Validation = building the right thing."
+    </div>
+
+    <h2>Design History File / Device Master Record / Device History Record</h2>
+    <ul>
+      <li><strong>DHF (Design History File)</strong> - the record of how the device was designed (plans, reviews, V&V).</li>
+      <li><strong>DMR (Device Master Record)</strong> - the "recipe": specs and procedures to make it.</li>
+      <li><strong>DHR (Device History Record)</strong> - the record that a specific unit was made to the DMR.</li>
+    </ul>
+    <p>(These terms come from the FDA QSR/21 CFR 820 world; ISO 13485 uses "design file" / "medical device file" but the concepts overlap and interviewers mix them.)</p>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - ISO/IEC 42001 and the "AI QMS"</div>
+      For AI products the conversation is extending ISO 13485 with <strong>ISO/IEC 42001:2023</strong>, the AI Management System standard. It adds governance for data, model lifecycle, bias, transparency, and human oversight. Expect "how would your QMS handle AI?" - the answer is an integrated 13485 + 42001 management system feeding the AI Act obligations.
+    </div>
+    <div class="box hot">
+      <div class="t">Hot 2026 - FDA QMSR harmonization</div>
+      The US FDA's new <strong>QMSR</strong> (effective 2026) aligns the old 21 CFR 820 with ISO 13485. So 13485 is now the global backbone for both EU and US - a strong thing to mention for any company that exports to the US.
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>What is the purpose of a QMS and why ISO 13485?</summary>
+    <p>A QMS is the documented, risk-based system of processes ensuring devices are consistently safe, effective and compliant, with evidence. ISO 13485 is the medical-device-specific, harmonized QMS standard, so conforming to it supports MDR Article 10 QMS obligations and is what Notified Bodies audit.</p></details>
+    <details class="qa"><summary>Explain verification vs validation.</summary>
+    <p>Verification confirms design outputs meet design inputs (building it right, against the spec). Validation confirms the device meets user needs and intended use in the real-world setting (building the right thing). Both are required and both feed the traceability matrix.</p></details>
+    <details class="qa"><summary>What is CAPA and when is it triggered?</summary>
+    <p>Corrective and Preventive Action: corrective addresses the root cause of a problem that already occurred; preventive addresses a potential problem. It is triggered by nonconformities, audit findings, complaints, or post-market signals. The process is investigate root cause, implement action, and verify effectiveness.</p></details>
+    <details class="qa"><summary>What are design controls?</summary>
+    <p>The structured process governing design: planning, inputs, outputs, design review, verification, validation, transfer, and change control, all captured in a design file with full traceability from user needs through requirements to tests.</p></details>
+    <details class="qa"><summary>How would a QMS adapt for AI-based devices?</summary>
+    <p>By extending ISO 13485 with ISO/IEC 42001 AI-management controls: data governance, model versioning and lineage, bias monitoring, human oversight, and predetermined change control for retraining, all feeding the EU AI Act duties.</p></details>
+
+    <div class="pager">
+      <a href="step-04-iec62304-software.html"><small>Prev</small>&larr; 04 - IEC 62304 Software</a>
+      <a class="nx" href="step-06-eu-ai-act.html"><small>Next</small>06 - EU AI Act &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 - PMS, EUDAMED & Vigilance</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>10 - Post-Market Surveillance, EUDAMED & Vigilance</h1>
+  <p>The lifecycle does not end at CE marking. This is heavily emphasised under MDR.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a class="cur" href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Post-market surveillance, EUDAMED & vigilance</h1>
+    <p class="lead">MDR put major weight on what happens <em>after</em> the device is on the market. For AI, where performance can drift, this is doubly important. File: a PMS plan in the technical documentation.</p>
+
+    <h2>Post-Market Surveillance (PMS)</h2>
+    <div class="box reg">
+      <div class="t">Reg - PMS (MDR Art. 83-86)</div>
+      Every manufacturer must have a proactive <strong>PMS system</strong> integrated into the QMS, based on a <strong>PMS plan (Art. 84)</strong>. Outputs:
+      <ul style="margin:.4em 0">
+        <li><strong>PMS Report</strong> - for Class I devices.</li>
+        <li><strong>PSUR (Periodic Safety Update Report)</strong> - for Class IIa and above; summarises PMS data, benefit-risk, and conclusions. DermaScan (IIa) would produce a PSUR.</li>
+      </ul>
+      PMS feeds back into the risk file, the clinical evaluation, and CAPA.
+    </div>
+
+    <h2>Post-Market Clinical Follow-up (PMCF)</h2>
+    <p><strong>PMCF (Annex XIV Part B)</strong> is the proactive collection of clinical data in real use to confirm safety/performance and detect emerging risks. For DermaScan this means monitoring real-world sensitivity/specificity, especially across subgroups, to catch <strong>model drift</strong>.</p>
+
+    <h2>Vigilance & incident reporting</h2>
+    <table>
+      <tr><th>Concept</th><th>Meaning</th></tr>
+      <tr><td><strong>Serious incident</strong></td><td>An event that led, or could lead, to death or serious deterioration of health.</td></tr>
+      <tr><td><strong>Reporting timelines (Art. 87)</strong></td><td>Generally without delay and no later than 15 days; 10 days for serious public-health threat; 2 days for death/serious deterioration.</td></tr>
+      <tr><td><strong>FSCA / FSN</strong></td><td>Field Safety Corrective Action and the Field Safety Notice that informs users (e.g. a recall, update, or usage restriction).</td></tr>
+      <tr><td><strong>Trend reporting</strong></td><td>Statistically significant increases in non-serious incidents or expected side-effects must be reported.</td></tr>
+    </table>
+
+    <h2>EUDAMED & UDI</h2>
+    <div class="box reg">
+      <div class="t">Reg - EUDAMED</div>
+      <strong>EUDAMED</strong> is the EU database for medical devices, with modules for actor registration, UDI/device registration, certificates, clinical investigations, vigilance, and market surveillance. <strong>UDI (Unique Device Identification)</strong> is the standardised code (Device Identifier + Production Identifier) that makes each device traceable. For software the UDI sits in documentation and an "about" screen, and changes with significant software versions.
+    </div>
+    <div class="box hot">
+      <div class="t">Hot 2026 - EUDAMED becomes mandatory</div>
+      EUDAMED has been voluntary while modules were finalised. Its <strong>mandatory use is phasing in around 28 May 2026</strong> (actor, UDI/device, and notified-body/certificate modules first, with vigilance and market-surveillance following). This is a top-of-mind operational topic - manufacturers are scrambling to register. Saying "I know EUDAMED is becoming mandatory in 2026 and what the modules are" is an instant credibility marker.
+    </div>
+
+    <h2>AI Act post-market duties (parallel set)</h2>
+    <ul>
+      <li><strong>Art. 72</strong> - post-market monitoring plan for the AI system (collect and analyse performance data over its lifetime).</li>
+      <li><strong>Art. 73</strong> - report <strong>serious incidents</strong> to the market surveillance authority.</li>
+      <li>For AI, monitoring must explicitly watch for <strong>performance drift and emergent bias</strong> - tie this to PMCF.</li>
+    </ul>
+
+    <div class="box tip">
+      <div class="t">Tip - the AI drift story</div>
+      A great closing point in interviews: <em>"For an AI device, post-market surveillance is not paperwork - it is the safety mechanism, because the model can silently degrade as real-world data drifts. My PMS plan defines drift and subgroup-performance monitoring with thresholds that trigger CAPA or retraining under a predetermined change control plan."</em>
+    </div>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>What is PMS and what does it produce?</summary>
+    <p>A proactive, planned system for gathering and analysing real-world data on a device after market entry, integrated with the QMS. It produces a PMS report (Class I) or a PSUR (Class IIa and above), feeding the risk file, clinical evaluation, and CAPA.</p></details>
+    <details class="qa"><summary>Difference between PMS and PMCF?</summary>
+    <p>PMS is the whole post-market data system (complaints, literature, registries, etc.). PMCF is the clinical sub-part: proactively collecting clinical data from real use to confirm ongoing safety and performance and detect emerging risks.</p></details>
+    <details class="qa"><summary>What is a serious incident and what are the timelines?</summary>
+    <p>An event that led or could lead to death or serious deterioration of health. Reporting is without undue delay and at most 15 days, 10 days for a serious public-health threat, and 2 days for death or serious deterioration.</p></details>
+    <details class="qa"><summary>What is EUDAMED and what is happening with it in 2026?</summary>
+    <p>The EU's central medical device database (registration, UDI, certificates, vigilance, market surveillance). Its mandatory use is phasing in around 28 May 2026, moving from voluntary to required, which is a major current compliance push.</p></details>
+    <details class="qa"><summary>Why is post-market surveillance especially critical for AI devices?</summary>
+    <p>Because model performance can drift as the real-world data distribution shifts, and bias can emerge in new populations. PMS/PMCF for AI must monitor live performance and subgroup metrics with predefined thresholds that trigger corrective action or controlled retraining.</p></details>
+
+    <div class="pager">
+      <a href="step-09-verification-validation.html"><small>Prev</small>&larr; 09 - V&V & Traceability</a>
+      <a class="nx" href="step-11-cybersecurity.html"><small>Next</small>11 - Cybersecurity &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

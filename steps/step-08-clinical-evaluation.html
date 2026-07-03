@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 - Clinical Evaluation & Performance</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>08 - Clinical Evaluation & Performance Evidence</h1>
+  <p>How you prove the device actually works, safely, for its intended purpose.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a class="cur" href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>Clinical evaluation & performance</h1>
+    <p class="lead">Clinical evaluation is the systematic, ongoing process of generating and assessing clinical data to confirm safety, performance, and an acceptable benefit-risk. For software it has a specific structure. File: <code>docs/regulatory/technical_documentation/clinical_evaluation.md</code>.</p>
+
+    <h2>MDR clinical evaluation basics</h2>
+    <p>Under <strong>MDR Art. 61 and Annex XIV</strong>, the manufacturer plans and conducts a clinical evaluation and writes a <strong>Clinical Evaluation Report (CER)</strong>, kept up to date with post-market data. The relevant guidance is the <strong>MEDDEV 2.7/1 Rev. 4</strong> heritage plus MDCG documents.</p>
+
+    <h2>The three pillars of SaMD clinical evidence</h2>
+    <p>For software, the <strong>IMDRF "Clinical Evaluation of SaMD"</strong> framework defines three things you must show:</p>
+    <table>
+      <tr><th>Pillar</th><th>Question</th><th>DermaScan</th></tr>
+      <tr><td><strong>Valid clinical association</strong></td><td>Is there a sound scientific basis linking the output to the clinical condition?</td><td>Dermoscopic features genuinely relate to malignancy (established dermatology)</td></tr>
+      <tr><td><strong>Analytical / technical validation</strong></td><td>Does the software correctly and reliably process input into output?</td><td>Model computes the score correctly, reproducibly (verification)</td></tr>
+      <tr><td><strong>Clinical validation</strong></td><td>Does the output achieve the intended clinical purpose in the target population?</td><td>Sensitivity/specificity on an independent, representative test set; ideally external validation</td></tr>
+    </table>
+
+    <h2>Performance metrics you must be able to discuss</h2>
+    <table>
+      <tr><th>Metric</th><th>Meaning</th><th>Why it matters for melanoma</th></tr>
+      <tr><td><strong>Sensitivity</strong> (recall, TPR)</td><td>Of true malignant, fraction flagged</td><td><strong>The priority</strong> - a missed melanoma is the worst outcome</td></tr>
+      <tr><td><strong>Specificity</strong> (TNR)</td><td>Of true benign, fraction correctly cleared</td><td>Low specificity -> unnecessary biopsies/anxiety</td></tr>
+      <tr><td>PPV / NPV</td><td>Predictive values (depend on prevalence)</td><td>Must be read against real-world prevalence</td></tr>
+      <tr><td>AUROC</td><td>Ranking quality across thresholds</td><td>Threshold-independent summary</td></tr>
+      <tr><td>Calibration</td><td>Do predicted probabilities match observed frequencies?</td><td>A "70%" must really mean 70% for safe decisions</td></tr>
+      <tr><td>Subgroup metrics</td><td>The above, per Fitzpatrick/age/sex</td><td>Exposes hidden bias</td></tr>
+    </table>
+
+    <div class="box warn">
+      <div class="t">Watch out - never report one number</div>
+      "95% accuracy" is meaningless and a red flag. On imbalanced data a model can score high accuracy while missing most melanomas. Always report sensitivity AND specificity (or AUROC) <em>with</em> confidence intervals, the dataset/split, the operating threshold, and subgroup breakdowns.
+    </div>
+
+    <div class="box tip">
+      <div class="t">Tip - sensitivity vs specificity trade-off</div>
+      For a cancer-screening triage tool you tune the threshold for <strong>high sensitivity</strong> (catch the cancers), accepting lower specificity (more false alarms a clinician then rules out). Be ready to justify your chosen operating point in clinical terms, not just "best F1".
+    </div>
+
+    <h2>Independent test set & external validation</h2>
+    <ul>
+      <li>Strictly separate train / validation / <strong>test</strong>; never tune on the test set.</li>
+      <li>Prevent <strong>leakage</strong> (e.g. multiple images of the same lesion split across train and test).</li>
+      <li>Prefer <strong>external validation</strong> on data from a different source/site than training - generalisation is the real-world question.</li>
+    </ul>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - clinical evidence for AI</div>
+      Notified Bodies increasingly expect prospective or at least independent external clinical validation for AI diagnostics, plus evidence the model is robust to <strong>real-world distribution shift</strong> and to image-quality variation. "It scored well on a held-out split of the same dataset" is no longer enough. The <strong>human-AI team performance</strong> (does the clinician + tool beat the clinician alone, without inducing automation bias?) is a growing evaluation question.
+    </div>
+
+    <h2>Benefit-risk determination</h2>
+    <p>The clinical evaluation closes the loop with ISO 14971: the demonstrated clinical <strong>benefit</strong> (earlier/better triage) must outweigh the <strong>residual risks</strong> (false negatives, bias, over-reliance). This benefit-risk conclusion is required by GSPR 1 and feeds the risk management report.</p>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>What are the three components of clinical evaluation for SaMD?</summary>
+    <p>Valid clinical association (scientific link between output and condition), analytical/technical validation (the software computes the output correctly and reliably), and clinical validation (the output achieves the intended clinical purpose in the target population).</p></details>
+    <details class="qa"><summary>Why not just report accuracy?</summary>
+    <p>Accuracy hides class imbalance: a model can miss most melanomas yet look accurate because benign cases dominate. You report sensitivity and specificity (or AUROC) with confidence intervals, the threshold, the dataset/split, and subgroup results.</p></details>
+    <details class="qa"><summary>For a melanoma triage tool, do you prioritise sensitivity or specificity?</summary>
+    <p>Sensitivity, because a false negative (missed melanoma) is the most serious harm. You set the threshold for high sensitivity and accept more false positives, which a clinician then rules out, and you justify the operating point clinically.</p></details>
+    <details class="qa"><summary>What is external validation and why does it matter?</summary>
+    <p>Evaluating the model on data from a different site/source than training. It tests real-world generalisation and exposes distribution shift, which an internal held-out split can mask. Notified Bodies increasingly expect it for AI diagnostics.</p></details>
+    <details class="qa"><summary>How does clinical evaluation connect to risk management?</summary>
+    <p>It provides the clinical benefit side of the benefit-risk determination required by the GSPR and ISO 14971: the demonstrated benefit must outweigh the residual risks for the device to be acceptable, and it is kept current with post-market clinical follow-up.</p></details>
+
+    <div class="pager">
+      <a href="step-07-data-governance-bias.html"><small>Prev</small>&larr; 07 - Data Governance & Bias</a>
+      <a class="nx" href="step-09-verification-validation.html"><small>Next</small>09 - V&V & Traceability &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

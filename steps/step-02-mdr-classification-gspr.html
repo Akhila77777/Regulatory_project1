@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 - MDR Classification & GSPR</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>02 - MDR Classification & General Safety and Performance Requirements</h1>
+  <p>Rule 11, the risk classes, the conformity route, and the GSPR checklist.</p>
+</div></header>
+<div class="wrap">
+  <nav class="side">
+    <h3>Sections</h3>
+    <a href="index.html"><span class="num">00</span>Home / Roadmap</a>
+    <a href="step-00-ra-landscape-germany.html"><span class="num">00</span>RA Landscape (DE)</a>
+    <a href="step-01-intended-purpose-samd.html"><span class="num">01</span>Intended Purpose & SaMD</a>
+    <a class="cur" href="step-02-mdr-classification-gspr.html"><span class="num">02</span>MDR Classification & GSPR</a>
+    <a href="step-03-iso14971-risk.html"><span class="num">03</span>ISO 14971 Risk</a>
+    <a href="step-04-iec62304-software.html"><span class="num">04</span>IEC 62304 Software</a>
+    <a href="step-05-iso13485-qms.html"><span class="num">05</span>ISO 13485 QMS</a>
+    <a href="step-06-eu-ai-act.html"><span class="num">06</span>EU AI Act</a>
+    <a href="step-07-data-governance-bias.html"><span class="num">07</span>Data Governance & Bias</a>
+    <a href="step-08-clinical-evaluation.html"><span class="num">08</span>Clinical Evaluation</a>
+    <a href="step-09-verification-validation.html"><span class="num">09</span>V&V & Traceability</a>
+    <a href="step-10-pms-eudamed-vigilance.html"><span class="num">10</span>PMS, EUDAMED, Vigilance</a>
+    <a href="step-11-cybersecurity.html"><span class="num">11</span>Cybersecurity</a>
+    <a href="step-12-technical-doc-ce-marking.html"><span class="num">12</span>Tech File & CE Marking</a>
+    <a href="step-13-interview-prep-2026.html"><span class="num">13</span>Interview Prep 2026</a>
+  </nav>
+  <main>
+    <h1>MDR classification & GSPR</h1>
+    <p class="lead">Classification sets your conformity route and your workload. For software the key is <strong>Rule 11</strong>. Project file: <code>docs/regulatory/classification_rationale.md</code>.</p>
+
+    <h2>The four risk classes</h2>
+    <table>
+      <tr><th>Class</th><th>Risk</th><th>Conformity assessment</th><th>Examples</th></tr>
+      <tr><td>I</td><td>Low</td><td>Self-declaration (NB only for sterile/measuring/reusable surgical)</td><td>Bandages, basic wellness software</td></tr>
+      <tr><td>IIa</td><td>Medium</td><td><strong>Notified Body required</strong></td><td>Most diagnostic-support SaMD</td></tr>
+      <tr><td>IIb</td><td>Medium-high</td><td>Notified Body required</td><td>Software driving therapy decisions with serious impact</td></tr>
+      <tr><td>III</td><td>High</td><td>Notified Body + design dossier scrutiny</td><td>Implants, software for critical/irreversible decisions</td></tr>
+    </table>
+
+    <div class="box reg">
+      <div class="t">Reg - MDR Rule 11 (Annex VIII)</div>
+      Software intended to <strong>provide information used to take decisions for diagnosis or therapeutic purposes</strong> is <strong>Class IIa</strong>, unless those decisions can cause:
+      <ul style="margin:.4em 0">
+        <li><strong>death or irreversible deterioration</strong> -> Class III;</li>
+        <li><strong>serious deterioration or surgical intervention</strong> -> Class IIb.</li>
+      </ul>
+      Software for monitoring physiological processes is IIa (IIb if vital parameters where variation could be immediately dangerous). All other software is Class I.
+    </div>
+
+    <h2>Applying Rule 11 to DermaScan</h2>
+    <p>DermaScan provides information (a malignancy-risk estimate) used to take a diagnostic decision -> Rule 11 applies. The default is <strong>Class IIa</strong>. The argument over IIb/III is about <em>harm from a wrong decision</em>:</p>
+    <ul>
+      <li>A <strong>false negative</strong> (missed melanoma) could lead to delayed treatment and irreversible harm - which pushes toward IIb/III.</li>
+      <li>The counter-argument: the device is <strong>decision support with mandatory clinician review</strong>, so the clinician (not the software) makes the final call, keeping it at IIa.</li>
+    </ul>
+    <p>Whichever you choose, <strong>document the rationale</strong> - the working assumption in this project is IIa pending the written justification. This "argue it, do not assert it" discipline is exactly what a reviewer wants to see.</p>
+
+    <div class="box hot">
+      <div class="t">Hot 2026 - the Rule 11 debate</div>
+      Rule 11 is widely criticised for up-classifying almost all clinical software, and the <strong>MDR/IVDR revision ("MDR 2.0")</strong> and the EU <strong>Digital Omnibus</strong> simplification package are live debates about easing it and reducing duplicate documentation across MDR and the AI Act. Mentioning this shows you follow the policy conversation, not just the static text.
+    </div>
+
+    <h2>General Safety and Performance Requirements (GSPR)</h2>
+    <p>The <strong>GSPR are MDR Annex I</strong> - the essential requirements every device must meet. You demonstrate conformity in a <strong>GSPR checklist</strong>: for each requirement, state applicability, the solution, and the evidence (standard, test, document).</p>
+    <table>
+      <tr><th>Annex I area</th><th>What it covers</th><th>DermaScan evidence</th></tr>
+      <tr><td>Ch. I (1-9): General</td><td>Safe by design, benefit-risk, risk management, lifecycle</td><td>ISO 14971 risk file; benefit-risk analysis</td></tr>
+      <tr><td>17: Electronic programmable systems / software</td><td>Repeatability, reliability, performance; development per state of the art; verification & validation</td><td>IEC 62304 lifecycle; V&V reports</td></tr>
+      <tr><td>14: Performance/usability</td><td>Reduce use error</td><td>IEC 62366-1 usability engineering</td></tr>
+      <tr><td>23: Information supplied (IFU/labelling)</td><td>Instructions, warnings, limitations</td><td>IFU with disclaimer & limits</td></tr>
+    </table>
+
+    <div class="box reg">
+      <div class="t">Reg - GSPR 17.2 (software specifics)</div>
+      Software must be developed and manufactured in accordance with the <strong>state of the art</strong>, considering development lifecycle, risk management (including information security), verification and validation. This is the hook that pulls in IEC 62304, ISO 14971 and IEC 81001-5-1.
+    </div>
+
+    <h2>Harmonized standards & presumption of conformity</h2>
+    <p>A <strong>harmonized standard</strong> is one cited in the EU Official Journal. Conforming to it gives a <strong>presumption of conformity</strong> to the matching GSPR - this is why standards matter so much. (Note: for the AI Act many harmonized standards are still being written - a current pain point.)</p>
+
+    <h2>Interview Q&A</h2>
+    <details class="qa"><summary>Walk me through classifying a diagnostic-support app under MDR.</summary>
+    <p>Confirm it qualifies as a device (Art. 2 / MDCG 2019-11), then apply Rule 11: software giving information for diagnostic/therapeutic decisions is Class IIa by default, IIb if a wrong decision could cause serious deterioration or surgery, III if death or irreversible deterioration. Then justify the class in writing based on the harm from an erroneous output and the role of clinician oversight.</p></details>
+    <details class="qa"><summary>Why is Rule 11 controversial?</summary>
+    <p>It tends to up-classify almost all clinical decision software to IIa or higher, sharply increasing the documentation and Notified Body burden even for low-risk tools. It is a central target of the MDR revision and the Digital Omnibus simplification debate.</p></details>
+    <details class="qa"><summary>What are the GSPR and how do you demonstrate conformity?</summary>
+    <p>The General Safety and Performance Requirements are MDR Annex I - the essential requirements for safety and performance. You demonstrate conformity with a GSPR checklist mapping each applicable requirement to the solution and the objective evidence, preferably via harmonized standards that grant a presumption of conformity.</p></details>
+    <details class="qa"><summary>What does "presumption of conformity" mean?</summary>
+    <p>If you follow a harmonized standard (one listed in the EU Official Journal), you are presumed to meet the corresponding legal requirement, shifting the burden of proof. It is the practical reason RA work revolves around standards.</p></details>
+
+    <div class="pager">
+      <a href="step-01-intended-purpose-samd.html"><small>Prev</small>&larr; 01 - Intended Purpose</a>
+      <a class="nx" href="step-03-iso14971-risk.html"><small>Next</small>03 - ISO 14971 Risk &rarr;</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>
