@@ -101,6 +101,16 @@ Regulatory_project1/
 - **Testing**: model evaluation scripts and API tests should map to entries in
   `docs/software/verification_validation/`.
 
+## 5b. Study material & build assistant
+
+- **`steps/`** is an HTML study site (open `steps/index.html`) covering each project section with
+  concepts, the actual regulations, current 2026 German MedTech RA trends, and interview Q&A. Use it
+  to prepare for a Regulatory Affairs job / internship / thesis. Keep it aligned with the project as
+  the docs evolve.
+- The **`dermascan-ra`** Claude Code skill (in the user's `~/.claude/skills/`) is the build co-pilot:
+  it enforces the §2 hard constraints, the doc-ID/traceability conventions, the regulatory build
+  order, and document templates. Each build phase maps to a `steps/step-XX-*.html` page.
+
 ## 6. Glossary
 
 - **SaMD** — Software as a Medical Device
